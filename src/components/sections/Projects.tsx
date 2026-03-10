@@ -66,6 +66,7 @@ export default function Projects({ projects }: ProjectsProps) {
                     </div>
                     {/* Project image if available */}
                     {project.imageUrl && (
+                      /* eslint-disable-next-line @next/next/no-img-element */
                       <img
                         src={project.imageUrl}
                         alt={project.title}

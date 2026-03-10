@@ -17,7 +17,7 @@ export default function MagneticButton({
   onClick,
   variant = 'primary',
 }: MagneticButtonProps) {
-  const btnRef = useRef<HTMLElement>(null)
+  const btnRef = useRef<HTMLAnchorElement & HTMLButtonElement>(null)
 
   const handleMouseMove = (e: MouseEvent) => {
     if (!btnRef.current) return
@@ -54,17 +54,32 @@ export default function MagneticButton({
     `,
   }
 
-  const props = {
-    ref: btnRef as any,
-    onMouseMove: handleMouseMove,
-    onMouseLeave: handleMouseLeave,
-    className: `${baseStyles} ${variants[variant]} ${className}`,
-    onClick,
-  }
+  const allStyles = `${baseStyles} ${variants[variant]} ${className}`
 
   if (href) {
-    return <a href={href} {...props}>{children}</a>
+    return (
+      <a
+        ref={btnRef}
+        href={href}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        className={allStyles}
+        onClick={onClick}
+      >
+        {children}
+      </a>
+    )
   }
 
-  return <button {...props}>{children}</button>
+  return (
+    <button
+      ref={btnRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className={allStyles}
+      onClick={onClick}
+    >
+      {children}
+    </button>
+  )
 }

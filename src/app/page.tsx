@@ -45,7 +45,7 @@ export default async function Home() {
 
         <div className="w-full h-px bg-gradient-to-r from-transparent via-accent to-transparent opacity-30" />
 
-        <Projects projects={projects as any} />
+        <Projects projects={projects as Array<{ id: string; title: string; description: string; tags: string[]; imageUrl: string | null; liveUrl: string | null; githubUrl: string | null; stats: Record<string, string> | null; featured: boolean; sortOrder: number }>} />
 
         <div className="w-full h-px bg-gradient-to-r from-transparent via-accent to-transparent opacity-30" />
 

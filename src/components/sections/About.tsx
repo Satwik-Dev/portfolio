@@ -30,14 +30,14 @@ export default function About({ bio, experiences }: AboutProps) {
             <div className="w-full max-w-[440px] mx-auto lg:mx-0 aspect-[3/4] rounded-2xl bg-gradient-to-br from-bg-elevated to-[#0c1322] border border-glass-border relative overflow-hidden flex items-center justify-center">
               {/* Neural lines */}
               <div className="absolute inset-0 overflow-hidden">
-                {[20, 40, 60, 80].map((top, i) => (
+                {[20, 40, 60, 80].map((top, idx) => (
                   <div
-                    key={i}
+                    key={idx}
                     className="absolute left-[-10%] w-[120%] h-px bg-gradient-to-r from-transparent via-accent/10 to-transparent"
                     style={{
                       top: `${top}%`,
                       animation: `nodeLineMove 4s ease-in-out infinite`,
-                      animationDelay: `${-i * 0.8}s`,
+                      animationDelay: `${-idx * 0.8}s`,
                     }}
                   />
                 ))}
@@ -64,8 +64,8 @@ export default function About({ bio, experiences }: AboutProps) {
           </h2>
 
           <div className="sr space-y-4 text-lg text-text-dim font-light leading-relaxed mb-10">
-            {bio.split('\n').filter(Boolean).map((paragraph, i) => (
-              <p key={i} dangerouslySetInnerHTML={{
+            {bio.split('\n').filter(Boolean).map((paragraph) => (
+              <p key={paragraph.slice(0, 20)} dangerouslySetInnerHTML={{
                 __html: paragraph
                   .replace(/BYJU'S/g, '<strong class="text-text-primary font-medium">BYJU\'S</strong>')
                   .replace(/Spirit AI/g, '<strong class="text-text-primary font-medium">Spirit AI</strong>')
@@ -99,7 +99,7 @@ export default function About({ bio, experiences }: AboutProps) {
             {/* Gradient line */}
             <div className="absolute left-0 top-0 h-full w-px bg-gradient-to-b from-accent via-accent-violet to-transparent" />
 
-            {experiences.map((exp, i) => (
+            {experiences.map((exp) => (
               <div key={exp.id} className="relative pb-8 pl-6 last:pb-0">
                 {/* Dot */}
                 <div className="absolute -left-[1.56rem] top-1.5 w-2 h-2 rounded-full bg-accent shadow-[0_0_10px_rgba(0,212,255,0.25)]" />
