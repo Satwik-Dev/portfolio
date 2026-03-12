@@ -8,6 +8,7 @@ interface NavbarProps {
 }
 
 const navLinks = [
+  { label: 'Home', href: '#hero' },
   { label: 'About', href: '#about' },
   { label: 'Work', href: '#projects' },
   { label: 'Skills', href: '#skills' },
@@ -34,23 +35,24 @@ export default function Navbar({ name }: NavbarProps) {
       <nav
         className={`fixed top-0 left-0 right-0 z-[9000] px-8 flex justify-between items-center transition-all duration-500 ${
           scrolled
-            ? 'py-3 bg-bg-primary/85 backdrop-blur-[30px] border-b border-glass-border'
-            : 'py-5 bg-transparent'
+            ? 'py-3 bg-bg-primary/95 backdrop-blur-[30px] border-b border-glass-border shadow-lg'
+            : 'py-6 bg-transparent'
         }`}
       >
         <a
           href="#"
-          className="font-heading text-xl font-bold text-text-primary no-underline relative"
+          className="font-heading text-2xl font-bold text-text-primary no-underline relative drop-shadow-[0_2px_8px_rgba(0,212,255,0.3)]"
           onClick={(e) => {
             e.preventDefault()
             window.scrollTo({ top: 0, behavior: 'smooth' })
           }}
         >
           {name}
-          <span className="absolute -bottom-0.5 left-0 w-full h-0.5 bg-gradient-to-r from-accent to-accent-violet" />
+          <span className="absolute -bottom-0.5 left-0 w-full h-0.5 bg-gradient-to-r from-accent to-accent-violet shadow-[0_0_10px_rgba(0,212,255,0.5)]" />
         </a>
 
-        <ul className="hidden md:flex items-center gap-10 list-none">
+        {/* Desktop Navigation */}
+        <ul className="hidden md:flex items-center gap-12 list-none">
           {navLinks.map((link) => (
             <li key={link.href}>
               <a
@@ -59,9 +61,10 @@ export default function Navbar({ name }: NavbarProps) {
                   e.preventDefault()
                   handleClick(link.href)
                 }}
-                className="text-xs font-normal text-text-dim tracking-[0.12em] uppercase no-underline transition-colors duration-300 hover:text-accent"
+                className="text-sm font-medium text-text-primary/90 tracking-[0.12em] uppercase no-underline transition-all duration-300 hover:text-accent hover:drop-shadow-[0_0_8px_rgba(0,212,255,0.6)] relative group"
               >
                 {link.label}
+                <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-accent transition-all duration-300 group-hover:w-full shadow-[0_0_8px_rgba(0,212,255,0.8)]" />
               </a>
             </li>
           ))}
@@ -72,40 +75,42 @@ export default function Navbar({ name }: NavbarProps) {
                 e.preventDefault()
                 handleClick('#contact')
               }}
-              className="px-6 py-2.5 bg-gradient-to-r from-accent to-accent-violet text-bg-primary rounded-full text-xs font-semibold tracking-[0.1em] uppercase no-underline transition-all duration-400 shadow-[0_0_25px_rgba(0,212,255,0.25)] hover:scale-105 hover:shadow-[0_0_45px_rgba(0,212,255,0.35)]"
+              className="px-7 py-3 bg-gradient-to-r from-accent to-accent-violet text-bg-primary font-semibold rounded-full text-sm tracking-[0.1em] uppercase no-underline transition-all duration-400 shadow-[0_0_30px_rgba(0,212,255,0.4)] hover:scale-105 hover:shadow-[0_0_50px_rgba(0,212,255,0.6)]"
             >
               Let&apos;s Talk
             </a>
           </li>
         </ul>
 
+        {/* Mobile Menu Button */}
         <button
           className="md:hidden flex flex-col gap-1.5 bg-transparent border-none p-1 cursor-pointer"
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="Toggle menu"
         >
           <span
-            className={`block w-6 h-[1.5px] bg-text-primary transition-all duration-300 ${
-              mobileOpen ? 'rotate-45 translate-y-[7px]' : ''
+            className={`block w-7 h-[2px] bg-text-primary transition-all duration-300 shadow-[0_0_4px_rgba(0,212,255,0.5)] ${
+              mobileOpen ? 'rotate-45 translate-y-[8px]' : ''
             }`}
           />
           <span
-            className={`block w-6 h-[1.5px] bg-text-primary transition-all duration-300 ${
+            className={`block w-7 h-[2px] bg-text-primary transition-all duration-300 shadow-[0_0_4px_rgba(0,212,255,0.5)] ${
               mobileOpen ? 'opacity-0' : ''
             }`}
           />
           <span
-            className={`block w-6 h-[1.5px] bg-text-primary transition-all duration-300 ${
-              mobileOpen ? '-rotate-45 -translate-y-[7px]' : ''
+            className={`block w-7 h-[2px] bg-text-primary transition-all duration-300 shadow-[0_0_4px_rgba(0,212,255,0.5)] ${
+              mobileOpen ? '-rotate-45 -translate-y-[8px]' : ''
             }`}
           />
         </button>
       </nav>
 
+      {/* Mobile Menu */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            className="fixed inset-0 z-[8999] bg-bg-primary/97 backdrop-blur-[40px] flex flex-col items-center justify-center gap-10"
+            className="fixed inset-0 z-[8999] bg-bg-primary/98 backdrop-blur-[40px] flex flex-col items-center justify-center gap-12"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -119,7 +124,7 @@ export default function Navbar({ name }: NavbarProps) {
                   e.preventDefault()
                   handleClick(link.href)
                 }}
-                className="font-heading text-4xl font-semibold text-text-dim no-underline transition-colors duration-300 hover:text-accent"
+                className="font-heading text-5xl font-semibold text-text-primary no-underline transition-all duration-300 hover:text-accent hover:drop-shadow-[0_0_15px_rgba(0,212,255,0.8)]"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1 }}
@@ -133,10 +138,10 @@ export default function Navbar({ name }: NavbarProps) {
                 e.preventDefault()
                 handleClick('#contact')
               }}
-              className="font-heading text-4xl font-semibold text-accent no-underline"
+              className="font-heading text-5xl font-semibold text-accent no-underline drop-shadow-[0_0_15px_rgba(0,212,255,0.8)]"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
+              transition={{ delay: 0.4 }}
             >
               Contact
             </motion.a>
