@@ -31,10 +31,23 @@ model Profile {
   linkedin              String?
   twitter               String?
   
-  // Stats - NEW FIELDS
+  // Hero Stats
   yearsExperience       String   @default("3+")
   projectsDelivered     String   @default("10+")
   clientSatisfaction    String   @default("99%")
+  
+  // About Section
+  avatarUrl             String?
+  aboutTitle            String   @default("Building the future, one system at a time.")
+  aboutBadge            String   @default("Founding Engineer @ Spirit AI")
+  metric1Value          String   @default("100K+")
+  metric1Label          String   @default("Concurrent Users Served")
+  metric2Value          String   @default("<200ms")
+  metric2Label          String   @default("API Response Time")
+  metric3Value          String   @default("3.91")
+  metric3Label          String   @default("GPA @ UMBC")
+  metric4Value          String   @default("20+")
+  metric4Label          String   @default("APIs Designed")
   
   createdAt             DateTime @default(now())
   updatedAt             DateTime @updatedAt

@@ -7,17 +7,17 @@ import GradientText from '@/components/ui/GradientText'
 interface Skill {
   id: string
   name: string
-  icon: string | null
-  subText: string | null
   category: string
-  sortOrder: number
+  level: number
+  order: number
 }
 
 interface Competency {
   id: string
   title: string
-  items: string[]
-  sortOrder: number
+  description: string
+  icon: string | null
+  order: number
 }
 
 interface SkillsProps {
@@ -52,13 +52,13 @@ export default function Skills({ skills, competencies }: SkillsProps) {
               <div className="absolute bottom-0 left-0 w-full h-[3px] bg-gradient-to-r from-accent to-accent-violet scale-x-0 group-hover:scale-x-100 transition-transform duration-400 origin-left" />
 
               <span className="text-3xl block mb-3">
-                {skill.icon ?? '⚡'}
+                ⚡
               </span>
               <div className="text-sm font-medium text-text-primary mb-1">
                 {skill.name}
               </div>
               <div className="font-mono text-[0.68rem] text-text-muted">
-                {skill.subText}
+                {skill.category}
               </div>
             </GlassCard>
           ))}
@@ -68,19 +68,17 @@ export default function Skills({ skills, competencies }: SkillsProps) {
         <div className="sr grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-10">
           {competencies.map((comp) => (
             <GlassCard key={comp.id} className="p-7">
-              <h3 className="font-heading text-lg font-semibold text-text-primary mb-4">
-                {comp.title}
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {comp.items.map((item) => (
-                  <span
-                    key={item}
-                    className="font-mono text-[0.65rem] text-text-dim px-2.5 py-1.5 bg-accent/[0.04] border border-accent/[0.06] rounded"
-                  >
-                    {item}
-                  </span>
-                ))}
+              <div className="flex items-start gap-3 mb-3">
+                {comp.icon && (
+                  <span className="text-2xl">{comp.icon}</span>
+                )}
+                <h3 className="font-heading text-lg font-semibold text-text-primary">
+                  {comp.title}
+                </h3>
               </div>
+              <p className="text-sm text-text-dim leading-relaxed">
+                {comp.description}
+              </p>
             </GlassCard>
           ))}
         </div>

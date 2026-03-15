@@ -15,10 +15,10 @@ const CustomCursor = dynamic(() => import('@/components/ui/CustomCursor'), { ssr
 
 export default async function Home() {
   const profile = await prisma.profile.findFirst()
-  const experiences = await prisma.experience.findMany({ orderBy: { sortOrder: 'asc' } })
-  const projects = await prisma.project.findMany({ orderBy: { sortOrder: 'asc' } })
-  const skills = await prisma.skill.findMany({ orderBy: { sortOrder: 'asc' } })
-  const competencies = await prisma.competency.findMany({ orderBy: { sortOrder: 'asc' } })
+  const experiences = await prisma.experience.findMany({ orderBy: { order: 'asc' } })
+  const projects = await prisma.project.findMany({ orderBy: { order: 'asc' } })
+  const skills = await prisma.skill.findMany({ orderBy: { order: 'asc' } })
+  const competencies = await prisma.competency.findMany({ orderBy: { order: 'asc' } })
 
   return (
     <>
@@ -31,9 +31,12 @@ export default async function Home() {
       <main className="relative z-[1]">
         <Hero
           name={profile?.name ?? 'Satwik Alla'}
-          title={profile?.title ?? 'AI Full Stack Engineer'}
+          title={profile?.title ?? 'Full Stack Engineer'}
           subtitle={profile?.subtitle}
           bio={profile?.bio ?? ''}
+          yearsExperience={profile?.yearsExperience ?? '3+'}
+          projectsDelivered={profile?.projectsDelivered ?? '10+'}
+          clientSatisfaction={profile?.clientSatisfaction ?? '99%'}
         />
 
         <div className="w-full h-px bg-gradient-to-r from-transparent via-accent to-transparent opacity-30" />
@@ -41,11 +44,22 @@ export default async function Home() {
         <About
           bio={profile?.bio ?? ''}
           experiences={experiences}
+          avatarUrl={profile?.avatarUrl}
+          aboutTitle={profile?.aboutTitle ?? 'Building the future, one system at a time.'}
+          aboutBadge={profile?.aboutBadge ?? 'Founding Engineer @ Spirit AI'}
+          metric1Value={profile?.metric1Value ?? '100K+'}
+          metric1Label={profile?.metric1Label ?? 'Concurrent Users Served'}
+          metric2Value={profile?.metric2Value ?? '<200ms'}
+          metric2Label={profile?.metric2Label ?? 'API Response Time'}
+          metric3Value={profile?.metric3Value ?? '3.91'}
+          metric3Label={profile?.metric3Label ?? 'GPA @ UMBC'}
+          metric4Value={profile?.metric4Value ?? '20+'}
+          metric4Label={profile?.metric4Label ?? 'APIs Designed'}
         />
 
         <div className="w-full h-px bg-gradient-to-r from-transparent via-accent to-transparent opacity-30" />
 
-        <Projects projects={projects as Array<{ id: string; title: string; description: string; tags: string[]; imageUrl: string | null; liveUrl: string | null; githubUrl: string | null; stats: Record<string, string> | null; featured: boolean; sortOrder: number }>} />
+        <Projects projects={projects as any} />
 
         <div className="w-full h-px bg-gradient-to-r from-transparent via-accent to-transparent opacity-30" />
 

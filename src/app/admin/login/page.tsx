@@ -31,7 +31,7 @@ export default function AdminLogin() {
   }
 
   return (
-    <div className="min-h-screen bg-bg-primary flex items-center justify-center px-4">
+    <div className="relative z-[100000] min-h-screen bg-bg-primary flex items-center justify-center px-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-10">
           <h1 className="font-heading text-4xl font-bold text-text-primary mb-2">

@@ -35,8 +35,22 @@ export async function PUT(req: NextRequest) {
       github: data.github,
       twitter: data.twitter,
       location: data.location,
+      // Hero Stats
+      yearsExperience: data.yearsExperience,
+      projectsDelivered: data.projectsDelivered,
+      clientSatisfaction: data.clientSatisfaction,
+      // About Section
       avatarUrl: data.avatarUrl,
-      resumeUrl: data.resumeUrl,
+      aboutTitle: data.aboutTitle,
+      aboutBadge: data.aboutBadge,
+      metric1Value: data.metric1Value,
+      metric1Label: data.metric1Label,
+      metric2Value: data.metric2Value,
+      metric2Label: data.metric2Label,
+      metric3Value: data.metric3Value,
+      metric3Label: data.metric3Label,
+      metric4Value: data.metric4Value,
+      metric4Label: data.metric4Label,
     },
   })
 

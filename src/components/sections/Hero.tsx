@@ -9,27 +9,16 @@ interface HeroProps {
   title: string
   subtitle?: string | null
   bio: string
+  yearsExperience: string
+  projectsDelivered: string
+  clientSatisfaction: string
 }
 
-export default function Hero({ name, title, subtitle, bio }: HeroProps) {
-  const isMobile = useMediaQuery('(max-width: 1024px)')
+export default function Hero({ name, title, subtitle, bio, yearsExperience, projectsDelivered, clientSatisfaction }: HeroProps) {  const isMobile = useMediaQuery('(max-width: 1024px)')
   const nameParts = name.split(' ')
 
   // Eye-catching bio - Replace in admin or use this default
   const displayBio = "I build fast, beautiful, and scalable web applications. Obsessed with clean code, exceptional UX, and delivering products that exceed expectations. Let's create something remarkable."
-  
-  /* Other bio options - copy one to displayBio above:
-  
-  Option 1: "Building digital experiences that users love and businesses trust. From concept to deployment, I transform ideas into scalable, pixel-perfect solutions that drive real results."
-  
-  Option 2: "Full-stack engineer specializing in high-performance web applications. I craft elegant solutions to complex problems, turning cutting-edge technology into seamless user experiences that scale."
-  
-  Option 3 (CURRENT): "I build fast, beautiful, and scalable web applications. Obsessed with clean code, exceptional UX, and delivering products that exceed expectations. Let's create something remarkable."
-  
-  Option 4: "Passionate full-stack developer with a design-first mindset. I bridge the gap between beautiful interfaces and robust architecture, creating digital products that are both delightful and dependable."
-  
-  Option 5: "Transforming complex challenges into elegant digital solutions. I architect, design, and build full-stack applications that combine technical excellence with intuitive user experiences."
-  */
 
   return (
     <section id="hero" className="relative min-h-screen flex items-center px-[6vw] pt-24 overflow-hidden">
@@ -104,14 +93,14 @@ export default function Hero({ name, title, subtitle, bio }: HeroProps) {
             </MagneticButton>
           </div>
 
-          {/* Updated Stats */}
+          {/* Dynamic Stats from Database */}
           <div className="flex gap-10 mt-14 opacity-0 animate-[fadeSlideUp_1s_1.5s_forwards]">
             <div>
               <div 
                 className="text-5xl font-bold text-accent mb-2"
                 style={{ textShadow: '0 0 20px rgba(0, 212, 255, 0.6), 0 4px 10px rgba(0, 0, 0, 0.5)' }}
               >
-                3+
+                {yearsExperience}
               </div>
               <div className="text-sm text-text-primary/75 uppercase tracking-wider font-medium">Years Experience</div>
             </div>
@@ -120,7 +109,7 @@ export default function Hero({ name, title, subtitle, bio }: HeroProps) {
                 className="text-5xl font-bold text-accent mb-2"
                 style={{ textShadow: '0 0 20px rgba(0, 212, 255, 0.6), 0 4px 10px rgba(0, 0, 0, 0.5)' }}
               >
-                10+
+                {projectsDelivered}
               </div>
               <div className="text-sm text-text-primary/75 uppercase tracking-wider font-medium">Projects Delivered</div>
             </div>
@@ -129,7 +118,7 @@ export default function Hero({ name, title, subtitle, bio }: HeroProps) {
                 className="text-5xl font-bold text-accent mb-2"
                 style={{ textShadow: '0 0 20px rgba(0, 212, 255, 0.6), 0 4px 10px rgba(0, 0, 0, 0.5)' }}
               >
-                99%
+                {clientSatisfaction}
               </div>
               <div className="text-sm text-text-primary/75 uppercase tracking-wider font-medium">Client Satisfaction</div>
             </div>

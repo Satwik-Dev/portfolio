@@ -10,12 +10,28 @@ interface ProfileData {
   bio: string
   email: string
   phone: string | null
-  linkedin: string | null
-  github: string | null
-  twitter: string | null
   location: string | null
+  github: string | null
+  linkedin: string | null
+  twitter: string | null
+  
+  // Hero Stats
+  yearsExperience: string
+  projectsDelivered: string
+  clientSatisfaction: string
+  
+  // About Section
   avatarUrl: string | null
-  resumeUrl: string | null
+  aboutTitle: string
+  aboutBadge: string
+  metric1Value: string
+  metric1Label: string
+  metric2Value: string
+  metric2Label: string
+  metric3Value: string
+  metric3Label: string
+  metric4Value: string
+  metric4Label: string
 }
 
 export default function AdminProfile() {
@@ -48,7 +64,7 @@ export default function AdminProfile() {
       })
 
       if (res.ok) {
-        setMessage('Profile saved successfully!')
+        setMessage('Profile saved successfully! ✓')
       } else {
         setMessage('Failed to save profile')
       }
@@ -76,7 +92,7 @@ export default function AdminProfile() {
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="font-heading text-3xl font-bold text-text-primary mb-2">Edit Profile</h1>
-          <p className="text-sm text-text-dim">Update your personal information</p>
+          <p className="text-sm text-text-dim">Update your personal information and hero stats</p>
         </div>
         <button
           onClick={handleSave}
@@ -97,38 +113,108 @@ export default function AdminProfile() {
         </div>
       )}
 
-      <div className="bg-glass border border-glass-border rounded-2xl p-8 backdrop-blur-xl">
+      {/* Basic Info Section */}
+      <div className="bg-glass border border-glass-border rounded-2xl p-8 backdrop-blur-xl mb-6">
+        <h2 className="font-heading text-xl font-semibold text-text-primary mb-6 flex items-center gap-3">
+          <span className="text-2xl">👤</span>
+          Basic Information
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="flex flex-col gap-2">
             <label className={labelClass}>Full Name</label>
             <input
               value={profile.name}
               onChange={(e) => handleChange('name', e.target.value)}
-              placeholder="Your name"
+              placeholder="Your full name"
               className={inputClass}
             />
           </div>
 
           <div className="flex flex-col gap-2">
-            <label className={labelClass}>Title</label>
+            <label className={labelClass}>Professional Title</label>
             <input
               value={profile.title}
               onChange={(e) => handleChange('title', e.target.value)}
-              placeholder="AI Full Stack Engineer"
+              placeholder="Full Stack Engineer"
               className={inputClass}
             />
           </div>
 
-          <div className="flex flex-col gap-2">
-            <label className={labelClass}>Subtitle (Hero Section)</label>
+          <div className="flex flex-col gap-2 md:col-span-2">
+            <label className={labelClass}>Hero Subtitle (Large Text Below Name)</label>
             <input
               value={profile.subtitle ?? ''}
               onChange={(e) => handleChange('subtitle', e.target.value)}
-              placeholder="AI FULL STACK ENGINEER"
+              placeholder="FULL STACK ENGINEER"
               className={inputClass}
             />
+            <p className="text-xs text-text-muted mt-1">This appears as the large text below your name on the hero section</p>
           </div>
 
+          <div className="flex flex-col gap-2 md:col-span-2">
+            <label className={labelClass}>Bio / Description</label>
+            <textarea
+              value={profile.bio}
+              onChange={(e) => handleChange('bio', e.target.value)}
+              rows={6}
+              placeholder="Tell your story... This appears in the About section and can be used throughout the site."
+              className={`${inputClass} resize-y`}
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Hero Stats Section */}
+      <div className="bg-glass border border-glass-border rounded-2xl p-8 backdrop-blur-xl mb-6">
+        <h2 className="font-heading text-xl font-semibold text-text-primary mb-2 flex items-center gap-3">
+          <span className="text-2xl">📊</span>
+          Hero Statistics
+        </h2>
+        <p className="text-sm text-text-dim mb-6">These stats appear prominently on your hero section</p>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="flex flex-col gap-2">
+            <label className={labelClass}>Years Experience</label>
+            <input
+              value={profile.yearsExperience}
+              onChange={(e) => handleChange('yearsExperience', e.target.value)}
+              placeholder="3+"
+              className={inputClass}
+            />
+            <p className="text-xs text-text-muted mt-1">Examples: 3+, 5+, 10+</p>
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <label className={labelClass}>Projects Delivered</label>
+            <input
+              value={profile.projectsDelivered}
+              onChange={(e) => handleChange('projectsDelivered', e.target.value)}
+              placeholder="10+"
+              className={inputClass}
+            />
+            <p className="text-xs text-text-muted mt-1">Examples: 10+, 25+, 50+</p>
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <label className={labelClass}>Client Satisfaction</label>
+            <input
+              value={profile.clientSatisfaction}
+              onChange={(e) => handleChange('clientSatisfaction', e.target.value)}
+              placeholder="99%"
+              className={inputClass}
+            />
+            <p className="text-xs text-text-muted mt-1">Examples: 99%, 100%</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Contact Information Section */}
+      <div className="bg-glass border border-glass-border rounded-2xl p-8 backdrop-blur-xl mb-6">
+        <h2 className="font-heading text-xl font-semibold text-text-primary mb-6 flex items-center gap-3">
+          <span className="text-2xl">📧</span>
+          Contact Information
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="flex flex-col gap-2">
             <label className={labelClass}>Email</label>
             <input
@@ -145,7 +231,7 @@ export default function AdminProfile() {
             <input
               value={profile.phone ?? ''}
               onChange={(e) => handleChange('phone', e.target.value)}
-              placeholder="1234567890"
+              placeholder="+1 (234) 567-8900"
               className={inputClass}
             />
           </div>
@@ -155,17 +241,26 @@ export default function AdminProfile() {
             <input
               value={profile.location ?? ''}
               onChange={(e) => handleChange('location', e.target.value)}
-              placeholder="New York City"
+              placeholder="San Francisco, CA"
               className={inputClass}
             />
           </div>
+        </div>
+      </div>
 
+      {/* Social Links Section */}
+      <div className="bg-glass border border-glass-border rounded-2xl p-8 backdrop-blur-xl">
+        <h2 className="font-heading text-xl font-semibold text-text-primary mb-6 flex items-center gap-3">
+          <span className="text-2xl">🔗</span>
+          Social Links
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="flex flex-col gap-2">
             <label className={labelClass}>LinkedIn URL</label>
             <input
               value={profile.linkedin ?? ''}
               onChange={(e) => handleChange('linkedin', e.target.value)}
-              placeholder="https://linkedin.com/in/..."
+              placeholder="https://linkedin.com/in/yourprofile"
               className={inputClass}
             />
           </div>
@@ -175,41 +270,171 @@ export default function AdminProfile() {
             <input
               value={profile.github ?? ''}
               onChange={(e) => handleChange('github', e.target.value)}
-              placeholder="https://github.com/..."
+              placeholder="https://github.com/yourusername"
               className={inputClass}
             />
           </div>
 
           <div className="flex flex-col gap-2">
-            <label className={labelClass}>Twitter URL</label>
+            <label className={labelClass}>Twitter / X URL</label>
             <input
               value={profile.twitter ?? ''}
               onChange={(e) => handleChange('twitter', e.target.value)}
-              placeholder="https://twitter.com/..."
-              className={inputClass}
-            />
-          </div>
-
-          <div className="flex flex-col gap-2">
-            <label className={labelClass}>Avatar URL</label>
-            <input
-              value={profile.avatarUrl ?? ''}
-              onChange={(e) => handleChange('avatarUrl', e.target.value)}
-              placeholder="https://..."
+              placeholder="https://twitter.com/yourhandle"
               className={inputClass}
             />
           </div>
         </div>
+      </div>
 
-        <div className="flex flex-col gap-2 mt-6">
-          <label className={labelClass}>Bio</label>
-          <textarea
-            value={profile.bio}
-            onChange={(e) => handleChange('bio', e.target.value)}
-            rows={8}
-            placeholder="Tell your story..."
-            className={`${inputClass} resize-y`}
-          />
+      {/* About Section */}
+      <div className="bg-glass border border-glass-border rounded-2xl p-8 backdrop-blur-xl mb-6">
+        <h2 className="font-heading text-xl font-semibold text-text-primary mb-2 flex items-center gap-3">
+          <span className="text-2xl">🎨</span>
+          About Section
+        </h2>
+        <p className="text-sm text-text-dim mb-6">Customize your About section content</p>
+        
+        <div className="grid grid-cols-1 gap-6">
+          <div className="flex flex-col gap-2">
+            <label className={labelClass}>Profile Photo URL</label>
+            <input
+              value={profile.avatarUrl ?? ''}
+              onChange={(e) => handleChange('avatarUrl', e.target.value)}
+              placeholder="https://your-image-url.com/photo.jpg"
+              className={inputClass}
+            />
+            <p className="text-xs text-text-muted mt-1">Upload your image to a service like Imgur or use a direct URL</p>
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <label className={labelClass}>Section Title</label>
+            <input
+              value={profile.aboutTitle}
+              onChange={(e) => handleChange('aboutTitle', e.target.value)}
+              placeholder="Building the future, one system at a time."
+              className={inputClass}
+            />
+            <p className="text-xs text-text-muted mt-1">Main heading in the About section</p>
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <label className={labelClass}>Current Role Badge</label>
+            <input
+              value={profile.aboutBadge}
+              onChange={(e) => handleChange('aboutBadge', e.target.value)}
+              placeholder="Founding Engineer @ Spirit AI"
+              className={inputClass}
+            />
+            <p className="text-xs text-text-muted mt-1">Shows below your profile photo</p>
+          </div>
+
+          {/* Metrics */}
+          <div className="mt-4">
+            <h3 className="font-mono text-sm font-semibold text-text-primary mb-4">About Metrics (4 Stats Cards)</h3>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Metric 1 */}
+              <div className="border border-glass-border rounded-xl p-4">
+                <p className="text-xs text-accent mb-3 font-mono uppercase tracking-wider">Metric 1</p>
+                <div className="flex flex-col gap-3">
+                  <div className="flex flex-col gap-1">
+                    <label className="text-xs text-text-muted uppercase tracking-wider">Value</label>
+                    <input
+                      value={profile.metric1Value}
+                      onChange={(e) => handleChange('metric1Value', e.target.value)}
+                      placeholder="100K+"
+                      className={inputClass}
+                    />
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <label className="text-xs text-text-muted uppercase tracking-wider">Label</label>
+                    <input
+                      value={profile.metric1Label}
+                      onChange={(e) => handleChange('metric1Label', e.target.value)}
+                      placeholder="Concurrent Users Served"
+                      className={inputClass}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Metric 2 */}
+              <div className="border border-glass-border rounded-xl p-4">
+                <p className="text-xs text-accent mb-3 font-mono uppercase tracking-wider">Metric 2</p>
+                <div className="flex flex-col gap-3">
+                  <div className="flex flex-col gap-1">
+                    <label className="text-xs text-text-muted uppercase tracking-wider">Value</label>
+                    <input
+                      value={profile.metric2Value}
+                      onChange={(e) => handleChange('metric2Value', e.target.value)}
+                      placeholder="<200ms"
+                      className={inputClass}
+                    />
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <label className="text-xs text-text-muted uppercase tracking-wider">Label</label>
+                    <input
+                      value={profile.metric2Label}
+                      onChange={(e) => handleChange('metric2Label', e.target.value)}
+                      placeholder="API Response Time"
+                      className={inputClass}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Metric 3 */}
+              <div className="border border-glass-border rounded-xl p-4">
+                <p className="text-xs text-accent mb-3 font-mono uppercase tracking-wider">Metric 3</p>
+                <div className="flex flex-col gap-3">
+                  <div className="flex flex-col gap-1">
+                    <label className="text-xs text-text-muted uppercase tracking-wider">Value</label>
+                    <input
+                      value={profile.metric3Value}
+                      onChange={(e) => handleChange('metric3Value', e.target.value)}
+                      placeholder="3.91"
+                      className={inputClass}
+                    />
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <label className="text-xs text-text-muted uppercase tracking-wider">Label</label>
+                    <input
+                      value={profile.metric3Label}
+                      onChange={(e) => handleChange('metric3Label', e.target.value)}
+                      placeholder="GPA @ UMBC"
+                      className={inputClass}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Metric 4 */}
+              <div className="border border-glass-border rounded-xl p-4">
+                <p className="text-xs text-accent mb-3 font-mono uppercase tracking-wider">Metric 4</p>
+                <div className="flex flex-col gap-3">
+                  <div className="flex flex-col gap-1">
+                    <label className="text-xs text-text-muted uppercase tracking-wider">Value</label>
+                    <input
+                      value={profile.metric4Value}
+                      onChange={(e) => handleChange('metric4Value', e.target.value)}
+                      placeholder="20+"
+                      className={inputClass}
+                    />
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <label className="text-xs text-text-muted uppercase tracking-wider">Label</label>
+                    <input
+                      value={profile.metric4Label}
+                      onChange={(e) => handleChange('metric4Label', e.target.value)}
+                      placeholder="APIs Designed"
+                      className={inputClass}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

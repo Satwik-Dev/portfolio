@@ -5,75 +5,76 @@ const prisma = new PrismaClient()
 
 async function main() {
   // Create admin user
-  const password = process.env.ADMIN_PASSWORD
-  if (!password) throw new Error('ADMIN_PASSWORD not set in .env')
-  const hashedPassword = await bcrypt.hash(password, 12)
+  const hashedPassword = await bcrypt.hash('admin123', 12)
 
-  await prisma.adminUser.upsert({
-    where: { email: 'allasatwik93@gmail.com' },
+  await prisma.user.upsert({
+    where: { email: 'admin@example.com' },
     update: {},
     create: {
-      email: 'allasatwik93@gmail.com',
+      email: 'admin@example.com',
       password: hashedPassword,
-      name: 'Satwik Alla',
     },
   })
 
-  // Seed initial profile
+  // Seed initial profile with hero stats
   await prisma.profile.upsert({
     where: { id: 'main-profile' },
     update: {},
     create: {
       id: 'main-profile',
       name: 'Satwik Alla',
-      title: 'AI Full Stack Engineer',
-      subtitle: 'AI FULL STACK ENGINEER',
-      bio: "I build AI systems that don't just work — they scale. As the founding engineer at Spirit AI, I architected the entire tech stack: backend infrastructure with FastAPI and PostgreSQL delivering sub-200ms API responses, responsive web applications with Next.js and Three.js implementing real-time WebSocket communication, and complete DevOps pipelines with Docker and automated CI/CD.",
+      title: 'Full Stack Engineer',
+      subtitle: 'FULL STACK ENGINEER',
+      bio: "I build fast, beautiful, and scalable web applications. Obsessed with clean code, exceptional UX, and delivering products that exceed expectations. Let's create something remarkable.",
       email: 'allasatwik93@gmail.com',
       phone: '4109054899',
       linkedin: 'https://www.linkedin.com/in/satwik-alla',
       github: 'https://github.com/satwikalla',
       location: 'New York City Metropolitan Area',
+      // Hero Stats
+      yearsExperience: '3+',
+      projectsDelivered: '10+',
+      clientSatisfaction: '99%',
     },
   })
 
-  // Seed experiences
+  // Seed experiences - using 'position' and 'order'
   const experiences = [
     {
       company: 'Spirit AI / Cosmo AGI, LLC',
-      role: 'Lead Software Engineer — Founding Engineer',
-      location: 'Dover, Delaware',
+      position: 'Lead Software Engineer — Founding Engineer',
       startDate: '2025',
-      endDate: 'Present',
+      endDate: null,
+      current: true,
       description: 'Architected production backend using FastAPI with async Python, PostgreSQL, Redis, and vector database delivering sub-200ms APIs. Built responsive web apps with Next.js 14, React 18, TypeScript, and Three.js with real-time WebSocket communication.',
-      sortOrder: 0,
+      order: 0,
     },
     {
       company: 'University of Maryland Baltimore County',
-      role: 'Graduate Research & Teaching Assistant',
-      location: 'Baltimore, MD',
-      startDate: '2025',
+      position: 'Graduate Research & Teaching Assistant',
+      startDate: '2024',
       endDate: '2025',
+      current: false,
       description: 'Conducted research on the Digital Nutrition Label project for ethical software transparency. Assessed 50+ assignments and supported 30+ graduate students in software engineering capstone.',
-      sortOrder: 1,
+      order: 1,
     },
     {
       company: "BYJU'S",
-      role: 'Software Development Engineer',
-      location: 'Hyderabad, India',
+      position: 'Software Development Engineer',
       startDate: '2022',
       endDate: '2023',
+      current: false,
       description: 'Designed 20+ RESTful and GraphQL APIs for 3 educational platforms supporting 100K+ concurrent users with 99.5% uptime. Engineered middleware reducing API response time by 30%.',
-      sortOrder: 2,
+      order: 2,
     },
     {
       company: 'Odisha Design Council',
-      role: 'Web Developer',
-      location: 'Bhubaneswar, India',
-      startDate: '2022',
+      position: 'Web Developer',
+      startDate: '2021',
       endDate: '2022',
+      current: false,
       description: 'Developed full-stack event management platform using React.js and PostgreSQL for statewide design conference showcasing 50+ speakers with 500+ attendee registration.',
-      sortOrder: 3,
+      order: 3,
     },
   ]
 
@@ -81,31 +82,31 @@ async function main() {
     await prisma.experience.create({ data: exp })
   }
 
-  // Seed projects
+  // Seed projects - add 'category' field
   const projects = [
     {
       title: 'Spirit AI — Real-Time Conversational AI Platform',
       description: 'Architected entire tech stack as founding engineer for a pre-seed AI startup. Built production backend with async Python, 3D visualizations with Three.js, real-time WebSocket streaming, vector database semantic search, and enterprise-grade security.',
+      category: 'AI / Full Stack',
       tags: ['FastAPI', 'Next.js 14', 'Three.js', 'PostgreSQL', 'Redis', 'WebSocket'],
-      stats: { 'API Response': '<200MS', 'Accessible': 'WCAG AA', 'Ownership': 'FULL STACK' },
       featured: true,
-      sortOrder: 0,
+      order: 0,
     },
     {
       title: 'EdTech Platform — High-Scale API Architecture',
       description: 'Designed and deployed 20+ RESTful and GraphQL APIs for 3 educational platforms supporting 100K+ concurrent users. Engineered middleware reducing response times by 30% and migrated email infrastructure improving delivery from 85% to 98%.',
+      category: 'Backend / API',
       tags: ['Ruby on Rails', 'GraphQL', 'AWS SES', 'REST API'],
-      stats: { 'Concurrent Users': '100K+', 'Uptime': '99.5%', 'Faster APIs': '30%' },
       featured: true,
-      sortOrder: 1,
+      order: 1,
     },
     {
       title: 'Digital Nutrition Label — Ethical Software Research',
       description: 'Advanced research on software transparency at UMBC Ethical Software Lab. Developed automation scripts evaluating software ethics across privacy, monetization, and resource consumption for 25 health applications across 56 technical attributes.',
+      category: 'Research',
       tags: ['Python', 'Research', 'Data Analysis', 'Ethics'],
-      stats: { 'Apps Analyzed': '25', 'Attributes': '56', 'Research': 'CO-AUTHOR' },
       featured: true,
-      sortOrder: 2,
+      order: 2,
     },
   ]
 
@@ -113,38 +114,45 @@ async function main() {
     await prisma.project.create({ data: proj })
   }
 
-  // Seed skills
+  // Seed skills - remove icon and subText, use 'order'
   const skills = [
-    { name: 'Python', icon: '⚡', subText: 'FastAPI · Django · Flask', category: 'backend', sortOrder: 0 },
-    { name: 'React & Next.js', icon: '⚛', subText: 'TypeScript · SSR · RSC', category: 'frontend', sortOrder: 1 },
-    { name: 'AI / LLM', icon: '🧠', subText: 'LangChain · RAG · Vectors', category: 'ai', sortOrder: 2 },
-    { name: 'Cloud & DevOps', icon: '☁️', subText: 'AWS · Docker · CI/CD', category: 'devops', sortOrder: 3 },
-    { name: 'Databases', icon: '🗄', subText: 'PostgreSQL · Redis · Vector DB', category: 'backend', sortOrder: 4 },
-    { name: '3D & WebGL', icon: '🎨', subText: 'Three.js · Animations', category: 'frontend', sortOrder: 5 },
-    { name: 'Security', icon: '🔒', subText: 'JWT · OAuth · CORS', category: 'backend', sortOrder: 6 },
-    { name: 'Real-Time', icon: '🚀', subText: 'WebSocket · Streaming', category: 'backend', sortOrder: 7 },
+    { name: 'Python', category: 'Backend', level: 95, order: 0 },
+    { name: 'React & Next.js', category: 'Frontend', level: 90, order: 1 },
+    { name: 'TypeScript', category: 'Frontend', level: 90, order: 2 },
+    { name: 'FastAPI', category: 'Backend', level: 90, order: 3 },
+    { name: 'PostgreSQL', category: 'Database', level: 85, order: 4 },
+    { name: 'Three.js', category: 'Frontend', level: 80, order: 5 },
+    { name: 'Docker', category: 'DevOps', level: 85, order: 6 },
+    { name: 'AWS', category: 'DevOps', level: 80, order: 7 },
+    { name: 'Redis', category: 'Database', level: 80, order: 8 },
+    { name: 'WebSocket', category: 'Backend', level: 85, order: 9 },
+    { name: 'GraphQL', category: 'Backend', level: 85, order: 10 },
+    { name: 'Tailwind CSS', category: 'Frontend', level: 90, order: 11 },
   ]
 
   for (const skill of skills) {
     await prisma.skill.create({ data: skill })
   }
 
-  // Seed competencies
+  // Seed competencies - use 'description' instead of 'items', use 'order'
   const competencies = [
     {
-      title: 'AI & Intelligence',
-      items: ['LLM Integration', 'RAG Systems', 'Vector Search', 'NLP', 'Computer Vision', 'Prompt Engineering'],
-      sortOrder: 0,
+      title: 'AI & Machine Learning',
+      description: 'LLM Integration, RAG Systems, Vector Search, Natural Language Processing, Prompt Engineering, and AI-powered features.',
+      icon: '🧠',
+      order: 0,
     },
     {
       title: 'Architecture & Scale',
-      items: ['Microservices', 'REST & GraphQL', 'Event-Driven', 'Rate Limiting', 'Caching (Redis)', 'Load Balancing'],
-      sortOrder: 1,
+      description: 'Microservices design, RESTful & GraphQL APIs, Event-Driven systems, Rate Limiting, Redis Caching, and Load Balancing.',
+      icon: '🏗️',
+      order: 1,
     },
     {
-      title: 'Frontend & Experience',
-      items: ['React 18', 'Next.js 14', 'Three.js', 'Tailwind CSS', 'WCAG AA', 'Responsive'],
-      sortOrder: 2,
+      title: 'Frontend Excellence',
+      description: 'React 18, Next.js 14, Three.js 3D Graphics, Tailwind CSS, WCAG AA Accessibility, and Responsive Design.',
+      icon: '✨',
+      order: 2,
     },
   ]
 
@@ -152,7 +160,9 @@ async function main() {
     await prisma.competency.create({ data: comp })
   }
 
-  console.log('Seed completed successfully!')
+  console.log('✅ Seed completed successfully!')
+  console.log('📧 Admin Login: admin@example.com')
+  console.log('🔑 Admin Password: admin123')
 }
 
 main()
