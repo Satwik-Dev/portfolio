@@ -6,7 +6,7 @@ import GrainOverlay from '@/components/layout/GrainOverlay'
 import Hero from '@/components/sections/Hero'
 import About from '@/components/sections/About'
 import Projects from '@/components/sections/Projects'
-import Skills from '@/components/sections/Skills'
+import TechStack from '@/components/sections/TechStack'
 import Contact from '@/components/sections/Contact'
 
 const NeuralField = dynamic(() => import('@/components/three/NeuralField'), { ssr: false })
@@ -18,7 +18,6 @@ export default async function Home() {
   const experiences = await prisma.experience.findMany({ orderBy: { order: 'asc' } })
   const projects = await prisma.project.findMany({ orderBy: { order: 'asc' } })
   const skills = await prisma.skill.findMany({ orderBy: { order: 'asc' } })
-  const competencies = await prisma.competency.findMany({ orderBy: { order: 'asc' } })
 
   return (
     <>
@@ -63,7 +62,7 @@ export default async function Home() {
 
         <div className="w-full h-px bg-gradient-to-r from-transparent via-accent to-transparent opacity-30" />
 
-        <Skills skills={skills} competencies={competencies} />
+        <TechStack skills={skills} />
 
         <div className="w-full h-px bg-gradient-to-r from-transparent via-accent to-transparent opacity-30" />
 

@@ -25,7 +25,7 @@ async function main() {
     update: {},
     create: {
       id: 'default-profile',
-      name: 'Satwik Annam',
+      name: 'Satwik Alla',
       title: 'FULL STACK ENGINEER',
       subtitle: 'Building scalable systems that matter',
       bio: `I'm a Full Stack Engineer with a passion for creating exceptional digital experiences. Currently a founding engineer at Spirit AI, where I architect and build cutting-edge AI-powered applications.
@@ -33,7 +33,7 @@ async function main() {
 With expertise spanning frontend to backend, cloud infrastructure to AI/ML integration, I specialize in transforming complex technical challenges into elegant, scalable solutions. My work has served over 100K+ concurrent users with sub-200ms response times.
 
 I hold a Master's in Software Engineering from UMBC with a 3.91 GPA, and have extensive experience at companies like BYJU'S, where I built systems that impacted millions of students worldwide.`,
-      email: 'satwik@example.com',
+      email: 'allasatwik93@gmail.com',
       phone: '+1 (XXX) XXX-XXXX',
       location: 'Baltimore, MD',
       github: 'https://github.com/satwik',
@@ -150,16 +150,64 @@ I hold a Master's in Software Engineering from UMBC with a 3.91 GPA, and have ex
   }
   console.log(`✅ ${experiences.length} experiences created`)
 
-  // Sample Skills
+  // Sample Skills with logo URLs
   const skills = [
-    { name: 'React', category: 'Frontend', level: 95, order: 0 },
-    { name: 'TypeScript', category: 'Frontend', level: 95, order: 1 },
-    { name: 'Node.js', category: 'Backend', level: 90, order: 2 },
-    { name: 'Next.js', category: 'Frontend', level: 90, order: 3 },
-    { name: 'PostgreSQL', category: 'Database', level: 85, order: 4 },
-    { name: 'AWS', category: 'Cloud', level: 85, order: 5 },
-    { name: 'Docker', category: 'DevOps', level: 80, order: 6 },
-    { name: 'Python', category: 'Backend', level: 85, order: 7 },
+    { 
+      name: 'React', 
+      category: 'Frontend', 
+      level: 95, 
+      order: 0,
+      logoUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg'
+    },
+    { 
+      name: 'TypeScript', 
+      category: 'Frontend', 
+      level: 95, 
+      order: 1,
+      logoUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg'
+    },
+    { 
+      name: 'Node.js', 
+      category: 'Backend', 
+      level: 90, 
+      order: 2,
+      logoUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg'
+    },
+    { 
+      name: 'Next.js', 
+      category: 'Frontend', 
+      level: 90, 
+      order: 3,
+      logoUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg'
+    },
+    { 
+      name: 'PostgreSQL', 
+      category: 'Database', 
+      level: 85, 
+      order: 4,
+      logoUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg'
+    },
+    { 
+      name: 'MongoDB', 
+      category: 'Database', 
+      level: 85, 
+      order: 5,
+      logoUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg'
+    },
+    { 
+      name: 'Express', 
+      category: 'Backend', 
+      level: 85, 
+      order: 6,
+      logoUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg'
+    },
+    { 
+      name: 'JavaScript', 
+      category: 'Frontend', 
+      level: 95, 
+      order: 7,
+      logoUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg'
+    },
   ]
 
   for (const skillData of skills) {
