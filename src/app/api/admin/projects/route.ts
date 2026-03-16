@@ -7,7 +7,7 @@ export async function GET() {
   const session = await getServerSession(authOptions)
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
-  const projects = await prisma.project.findMany({ orderBy: { sortOrder: 'asc' } })
+  const projects = await prisma.project.findMany({ orderBy: { order: 'asc' } })
   return NextResponse.json(projects)
 }
 
@@ -22,13 +22,14 @@ export async function POST(req: NextRequest) {
     data: {
       title: data.title,
       description: data.description,
+      category: data.category || 'Web Application',
       tags: data.tags || [],
       imageUrl: data.imageUrl || null,
-      liveUrl: data.liveUrl || null,
+      demoUrl: data.demoUrl || null,
       githubUrl: data.githubUrl || null,
       stats: data.stats || null,
       featured: data.featured || false,
-      sortOrder: count,
+      order: data.order !== undefined ? data.order : count,
     },
   })
 
@@ -41,18 +42,29 @@ export async function PUT(req: NextRequest) {
 
   const data = await req.json()
 
+  // If only order is being updated (for reordering)
+  if (data.order !== undefined && Object.keys(data).length === 2) {
+    const project = await prisma.project.update({
+      where: { id: data.id },
+      data: { order: data.order },
+    })
+    return NextResponse.json(project)
+  }
+
+  // Full update
   const project = await prisma.project.update({
     where: { id: data.id },
     data: {
       title: data.title,
       description: data.description,
+      category: data.category || 'Web Application',
       tags: data.tags || [],
       imageUrl: data.imageUrl || null,
-      liveUrl: data.liveUrl || null,
+      demoUrl: data.demoUrl || null,
       githubUrl: data.githubUrl || null,
       stats: data.stats || null,
       featured: data.featured || false,
-      sortOrder: data.sortOrder,
+      ...(data.order !== undefined && { order: data.order }),
     },
   })
 

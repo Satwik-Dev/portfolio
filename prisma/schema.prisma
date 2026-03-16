@@ -59,11 +59,12 @@ model Project {
   id          String   @id @default(cuid())
   title       String
   description String
-  category    String
+  category    String   @default("Web Application")
   tags        String[]
   imageUrl    String?
   demoUrl     String?
   githubUrl   String?
+  stats       Json? 
   featured    Boolean  @default(false)
   order       Int      @default(0)
   createdAt   DateTime @default(now())
