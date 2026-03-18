@@ -7,13 +7,17 @@ async function main() {
   console.log('🌱 Starting seed...')
 
   // Create admin user
-  const hashedPassword = await bcrypt.hash(process.env.ADMIN_PASSWORD || 'admin123', 10)
+  if (!process.env.ADMIN_EMAIL || !process.env.ADMIN_PASSWORD) {
+    throw new Error('ADMIN_EMAIL and ADMIN_PASSWORD must be set in .env')
+  }
+  
+  const hashedPassword = await bcrypt.hash(process.env.ADMIN_PASSWORD, 10)
   
   const user = await prisma.user.upsert({
-    where: { email: process.env.ADMIN_EMAIL || 'admin@example.com' },
+    where: { email: process.env.ADMIN_EMAIL },
     update: {},
     create: {
-      email: process.env.ADMIN_EMAIL || 'admin@example.com',
+      email: process.env.ADMIN_EMAIL,
       password: hashedPassword,
     },
   })
@@ -146,7 +150,7 @@ With a Master's in Software Engineering at UMBC (3.91 GPA) and a BTech from IIT 
       order: 1,
     },
     {
-      company: 'BYJU\'S (Think and Learn Private Ltd)',
+      company: 'BYJU\'S',
       position: 'Software Development Engineer',
       startDate: 'Jun 2022',
       endDate: 'May 2023',
@@ -190,55 +194,55 @@ With a Master's in Software Engineering at UMBC (3.91 GPA) and a BTech from IIT 
   // Images will be uploaded to /public/images/ as skill.png or skill.svg
   const skills = [
     // Languages
-    { name: 'Python', category: 'Languages', level: 95, order: 0, logoUrl: '/images/python.jpg' },
+    { name: 'Python', category: 'Languages', level: 95, order: 0, logoUrl: '/images/python.png' },
     { name: 'Java', category: 'Languages', level: 85, order: 1, logoUrl: '/images/java.png' },
-    { name: 'JavaScript', category: 'Languages', level: 95, order: 2, logoUrl: '/images/javascript.png' },
-    { name: 'TypeScript', category: 'Languages', level: 95, order: 3, logoUrl: '/images/typescript.png' },
-    { name: 'Ruby', category: 'Languages', level: 80, order: 4, logoUrl: '/images/ruby.png' },
+    { name: 'JavaScript', category: 'Languages', level: 95, order: 2, logoUrl: '/images/javascript.svg' },
+    { name: 'TypeScript', category: 'Languages', level: 95, order: 3, logoUrl: '/images/typescript.svg' },
+    { name: 'Ruby', category: 'Languages', level: 80, order: 4, logoUrl: '/images/ruby.svg' },
     { name: 'C', category: 'Languages', level: 75, order: 5, logoUrl: '/images/c.png' },
-    { name: 'C++', category: 'Languages', level: 78, order: 6, logoUrl: '/images/cplusplus.png' },
-    { name: 'HTML', category: 'Languages', level: 98, order: 7, logoUrl: '/images/html.png' },
-    { name: 'CSS', category: 'Languages', level: 95, order: 8, logoUrl: '/images/css.png' },
+    { name: 'C++', category: 'Languages', level: 78, order: 6, logoUrl: '/images/cplusplus.svg' },
+    { name: 'HTML', category: 'Languages', level: 98, order: 7, logoUrl: '/images/html.svg' },
+    { name: 'CSS', category: 'Languages', level: 95, order: 8, logoUrl: '/images/css.svg' },
 
     // Frontend
-    { name: 'React.js', category: 'Frontend', level: 95, order: 9, logoUrl: '/images/react.png' },
-    { name: 'Next.js', category: 'Frontend', level: 92, order: 10, logoUrl: '/images/nextjs.png' },
-    { name: 'Three.js', category: 'Frontend', level: 80, order: 11, logoUrl: '/images/three.png' },
-    { name: 'Tailwind CSS', category: 'Frontend', level: 92, order: 12, logoUrl: '/images/tailwindcss.png' },
+    { name: 'React.js', category: 'Frontend', level: 95, order: 9, logoUrl: '/images/react.svg' },
+    { name: 'Next.js', category: 'Frontend', level: 92, order: 10, logoUrl: '/images/nextjs.svg' },
+    { name: 'Three.js', category: 'Frontend', level: 80, order: 11, logoUrl: '/images/three.svg' },
+    { name: 'Tailwind CSS', category: 'Frontend', level: 92, order: 12, logoUrl: '/images/tailwindcss.svg' },
 
     // Backend
     { name: 'Node.js', category: 'Backend', level: 90, order: 13, logoUrl: '/images/nodejs.png' },
-    { name: 'FastAPI', category: 'Backend', level: 90, order: 14, logoUrl: '/images/fastapi.png' },
-    { name: 'Django', category: 'Backend', level: 82, order: 15, logoUrl: '/images/django.png' },
+    { name: 'FastAPI', category: 'Backend', level: 90, order: 14, logoUrl: '/images/fastapi.svg' },
+    { name: 'Django', category: 'Backend', level: 82, order: 15, logoUrl: '/images/django.svg' },
     { name: 'Flask', category: 'Backend', level: 85, order: 16, logoUrl: '/images/flask.png' },
     { name: 'Ruby on Rails', category: 'Backend', level: 80, order: 17, logoUrl: '/images/rubyonrails.png' },
-    { name: 'RESTful API', category: 'Backend', level: 95, order: 18, logoUrl: '/images/restfulapi.png' },
+    { name: 'RESTful API', category: 'Backend', level: 95, order: 18, logoUrl: '/images/restapi.png' },
 
     // Databases
-    { name: 'PostgreSQL', category: 'Databases', level: 92, order: 19, logoUrl: '/images/postgresql.png' },
-    { name: 'Redis', category: 'Databases', level: 82, order: 20, logoUrl: '/images/redis.png' },
-    { name: 'MongoDB', category: 'Databases', level: 88, order: 21, logoUrl: '/images/mongodb.png' },
+    { name: 'PostgreSQL', category: 'Databases', level: 92, order: 19, logoUrl: '/images/postgresql.svg' },
+    { name: 'Redis', category: 'Databases', level: 82, order: 20, logoUrl: '/images/redis.svg' },
+    { name: 'MongoDB', category: 'Databases', level: 88, order: 21, logoUrl: '/images/mongodb.svg' },
     { name: 'Supabase', category: 'Databases', level: 85, order: 22, logoUrl: '/images/supabase.png' },
 
     // Cloud & DevOps
-    { name: 'Docker', category: 'Cloud & DevOps', level: 88, order: 23, logoUrl: '/images/docker.png' },
+    { name: 'Docker', category: 'Cloud & DevOps', level: 88, order: 23, logoUrl: '/images/docker.svg' },
     { name: 'AWS', category: 'Cloud & DevOps', level: 85, order: 24, logoUrl: '/images/aws.png' },
     { name: 'GCP', category: 'Cloud & DevOps', level: 75, order: 25, logoUrl: '/images/gcp.png' },
-    { name: 'Git', category: 'Cloud & DevOps', level: 95, order: 26, logoUrl: '/images/git.png' },
-    { name: 'GitHub Actions', category: 'Cloud & DevOps', level: 85, order: 27, logoUrl: '/images/githubactions.png' },
+    { name: 'Git', category: 'Cloud & DevOps', level: 95, order: 26, logoUrl: '/images/git.svg' },
+    { name: 'GitHub Actions', category: 'Cloud & DevOps', level: 85, order: 27, logoUrl: '/images/githubactions.svg' },
 
     // Tools & Platforms
-    { name: 'Sentry', category: 'Tools & Platforms', level: 82, order: 28, logoUrl: '/images/sentry.png' },
-    { name: 'Prometheus', category: 'Tools & Platforms', level: 78, order: 29, logoUrl: '/images/prometheus.png' },
-    { name: 'VS Code', category: 'Tools & Platforms', level: 95, order: 30, logoUrl: '/images/vscode.jpg' },
+    { name: 'Sentry', category: 'Tools & Platforms', level: 82, order: 28, logoUrl: '/images/sentry.svg' },
+    { name: 'Prometheus', category: 'Tools & Platforms', level: 78, order: 29, logoUrl: '/images/prometheus.svg' },
+    { name: 'VS Code', category: 'Tools & Platforms', level: 95, order: 30, logoUrl: '/images/vscode.png' },
     { name: 'Figma', category: 'Tools & Platforms', level: 75, order: 31, logoUrl: '/images/figma.png' },
     { name: 'Postman', category: 'Tools & Platforms', level: 90, order: 32, logoUrl: '/images/postman.png' },
 
     // AI & Data
-    { name: 'LLMs', category: 'AI & Data', level: 85, order: 33, logoUrl: '/images/llms.jpg' },
+    { name: 'LLMs', category: 'AI & Data', level: 85, order: 33, logoUrl: '/images/llms.png' },
     { name: 'Apache Kafka', category: 'AI & Data', level: 78, order: 34, logoUrl: '/images/kafka.png' },
     { name: 'Apache Airflow', category: 'AI & Data', level: 75, order: 35, logoUrl: '/images/airflow.png' },
-    { name: 'Prisma', category: 'AI & Data', level: 88, order: 36, logoUrl: '/images/prisma.jpg' },
+    { name: 'Prisma', category: 'AI & Data', level: 88, order: 36, logoUrl: '/images/prisma.png' },
   ]
 
   for (const skillData of skills) {
@@ -276,12 +280,12 @@ With a Master's in Software Engineering at UMBC (3.91 GPA) and a BTech from IIT 
       order: 0,
     },
     {
-      school: 'Indian Institute of Technology Bhubaneswar',
+      school: 'IIT Bhubaneswar',
       degree: 'Bachelor of Technology',
       field: 'Electrical Engineering',
-      gpa: '3.2 / 4.0',
-      startDate: 'July 2018',
-      endDate: 'May 2022',
+      gpa: null,
+      startDate: 'Aug 2018',
+      endDate: 'Jun 2022',
       current: false,
       description: 'Strong foundation in engineering fundamentals, algorithms, and low-level systems. E-Summit Publicity Coordinator. Transitioned into software engineering with web development and microprocessor design projects.',
       coursework: [
