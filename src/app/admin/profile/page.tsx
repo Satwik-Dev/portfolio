@@ -135,7 +135,7 @@ export default function AdminProfile() {
             <input
               value={profile.title}
               onChange={(e) => handleChange('title', e.target.value)}
-              placeholder="Full Stack Engineer"
+              placeholder="Software Engineer"
               className={inputClass}
             />
           </div>
@@ -145,7 +145,7 @@ export default function AdminProfile() {
             <input
               value={profile.subtitle ?? ''}
               onChange={(e) => handleChange('subtitle', e.target.value)}
-              placeholder="FULL STACK ENGINEER"
+              placeholder="SOFTWARE ENGINEER"
               className={inputClass}
             />
             <p className="text-xs text-text-muted mt-1">This appears as the large text below your name on the hero section</p>

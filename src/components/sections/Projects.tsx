@@ -80,7 +80,7 @@ export default function Projects({ projects }: ProjectsProps) {
                   index % 2 !== 0 ? 'lg:grid-cols-[1fr_1fr] lg:[direction:rtl]' : ''
                 }`}>
                   {/* Visual Side */}
-                  <div className={`relative w-full aspect-[16/10] lg:aspect-auto lg:min-h-[500px] overflow-hidden ${
+                  <div className={`relative w-full aspect-[16/10] lg:aspect-auto lg:min-h-[420px] overflow-hidden ${
                     index % 2 !== 0 ? 'lg:[direction:ltr]' : ''
                   }`}>
                     {/* Background layers */}
@@ -103,21 +103,21 @@ export default function Projects({ projects }: ProjectsProps) {
                     
                     {/* Project image if available */}
                     {project.imageUrl && (
-                      <div className="absolute inset-0">
+                      <div className="absolute inset-0 flex items-center justify-center p-8 lg:p-12">
                         {/* Color integration overlay */}
                         <div className="absolute inset-0 bg-gradient-to-br from-accent/12 via-transparent to-accent-violet/12 mix-blend-overlay z-10 pointer-events-none" />
                         
                         {/* Edge fades */}
-                        <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-bg-elevated to-transparent z-10 pointer-events-none" />
-                        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-bg-elevated via-bg-elevated/60 to-transparent z-10 pointer-events-none" />
-                        <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-bg-elevated to-transparent z-10 pointer-events-none" />
-                        <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-bg-elevated to-transparent z-10 pointer-events-none" />
+                        <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-bg-elevated to-transparent z-10 pointer-events-none" />
+                        <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-bg-elevated via-bg-elevated/60 to-transparent z-10 pointer-events-none" />
+                        <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-bg-elevated to-transparent z-10 pointer-events-none" />
+                        <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-bg-elevated to-transparent z-10 pointer-events-none" />
                         
                         <Image
                           src={project.imageUrl}
                           alt={project.title}
                           fill
-                          className="object-cover mix-blend-lighten opacity-70 group-hover:opacity-85 group-hover:scale-105 transition-all duration-700"
+                          className="object-contain object-center opacity-80 group-hover:opacity-95 group-hover:scale-[1.03] transition-all duration-700 p-6 lg:p-10"
                           quality={90}
                         />
                         
