@@ -497,7 +497,7 @@ export default function AdminProjects() {
           <div className="text-center py-16 text-text-muted">
             <div className="text-6xl mb-4">📁</div>
             <p className="text-sm">No projects added yet.</p>
-            <p className="text-xs mt-2">Click "Add Project" to get started.</p>
+            <p className="text-xs mt-2">Click &ldquo;Add Project&rdquo; to get started.</p>
           </div>
         )}
       </div>

@@ -58,6 +58,7 @@ export default async function Home() {
 
         <div className="w-full h-px bg-gradient-to-r from-transparent via-accent to-transparent opacity-30" />
 
+        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
         <Projects projects={projects as any} />
 
         <div className="w-full h-px bg-gradient-to-r from-transparent via-accent to-transparent opacity-30" />

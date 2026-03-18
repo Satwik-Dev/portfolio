@@ -265,7 +265,7 @@ export default function Projects({ projects }: ProjectsProps) {
                 Have a project in mind?
               </h3>
               <p className="text-text-primary/70 mb-6 max-w-md">
-                Let's collaborate and build something exceptional together.
+                Let&apos;s collaborate and build something exceptional together.
               </p>
               <a
                 href="#contact"

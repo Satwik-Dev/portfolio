@@ -7,7 +7,7 @@ export async function GET() {
   const session = await getServerSession(authOptions)
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
-  const experiences = await prisma.experience.findMany({ orderBy: { sortOrder: 'asc' } })
+  const experiences = await prisma.experience.findMany({ orderBy: { order: 'asc' } })
   return NextResponse.json(experiences)
 }
 
@@ -21,12 +21,12 @@ export async function POST(req: NextRequest) {
   const experience = await prisma.experience.create({
     data: {
       company: data.company,
-      role: data.role,
-      location: data.location || null,
+      position: data.position,
       startDate: data.startDate,
       endDate: data.endDate || null,
-      description: data.description,
-      sortOrder: count,
+      description: data.description || null,
+      current: data.current || false,
+      order: count,
     },
   })
 
@@ -43,12 +43,12 @@ export async function PUT(req: NextRequest) {
     where: { id: data.id },
     data: {
       company: data.company,
-      role: data.role,
-      location: data.location || null,
+      position: data.position,
       startDate: data.startDate,
       endDate: data.endDate || null,
-      description: data.description,
-      sortOrder: data.sortOrder,
+      description: data.description || null,
+      current: data.current || false,
+      order: data.order,
     },
   })
 

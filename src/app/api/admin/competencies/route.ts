@@ -7,7 +7,7 @@ export async function GET() {
   const session = await getServerSession(authOptions)
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
-  const competencies = await prisma.competency.findMany({ orderBy: { sortOrder: 'asc' } })
+  const competencies = await prisma.competency.findMany({ orderBy: { order: 'asc' } })
   return NextResponse.json(competencies)
 }
 
@@ -21,8 +21,9 @@ export async function POST(req: NextRequest) {
   const competency = await prisma.competency.create({
     data: {
       title: data.title,
-      items: data.items || [],
-      sortOrder: count,
+      description: data.description || '',
+      icon: data.icon || null,
+      order: count,
     },
   })
 
@@ -39,8 +40,9 @@ export async function PUT(req: NextRequest) {
     where: { id: data.id },
     data: {
       title: data.title,
-      items: data.items || [],
-      sortOrder: data.sortOrder,
+      description: data.description || '',
+      icon: data.icon || null,
+      order: data.order,
     },
   })
 

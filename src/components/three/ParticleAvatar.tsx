@@ -17,7 +17,6 @@ export default function ParticleAvatar() {
     
     // REDUCED SIZE - Human proportions (70% of previous size)
     const scale = 0.7  // Master scale factor
-    const headHeight = 0.3 * scale
     
     let idx = 0
     

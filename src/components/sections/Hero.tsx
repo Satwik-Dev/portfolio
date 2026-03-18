@@ -14,7 +14,7 @@ interface HeroProps {
   clientSatisfaction: string
 }
 
-export default function Hero({ name, title, subtitle, bio, yearsExperience, projectsDelivered, clientSatisfaction }: HeroProps) {  const isMobile = useMediaQuery('(max-width: 1024px)')
+export default function Hero({ name, yearsExperience, projectsDelivered, clientSatisfaction }: HeroProps) {  const isMobile = useMediaQuery('(max-width: 1024px)')
   const nameParts = name.split(' ')
 
   // Eye-catching bio - Replace in admin or use this default
@@ -86,7 +86,7 @@ export default function Hero({ name, title, subtitle, bio, yearsExperience, proj
               </svg>
             </MagneticButton>
             <MagneticButton href="#contact" variant="outline">
-              <span className="text-base font-semibold">Let's Collaborate</span>
+              <span className="text-base font-semibold">Let&apos;s Collaborate</span>
               <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                 <path d="M7 17L17 7M17 7H7M17 7v10" />
               </svg>

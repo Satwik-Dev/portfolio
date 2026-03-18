@@ -150,63 +150,170 @@ I hold a Master's in Software Engineering from UMBC with a 3.91 GPA, and have ex
   }
   console.log(`✅ ${experiences.length} experiences created`)
 
-  // Sample Skills with logo URLs
+  // Skills with LOCAL image paths from /public/images/
+  // You can upload your tech logo images to /public/images/ folder
+  // Naming convention: /images/react.webp, /images/nextjs.webp, etc.
   const skills = [
+    // Frontend Technologies
     { 
       name: 'React', 
       category: 'Frontend', 
       level: 95, 
       order: 0,
-      logoUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg'
+      logoUrl: '/images/react.svg'
+    },
+    { 
+      name: 'Next.js', 
+      category: 'Frontend', 
+      level: 92, 
+      order: 1,
+      logoUrl: '/images/nextjs.svg'
     },
     { 
       name: 'TypeScript', 
       category: 'Frontend', 
       level: 95, 
-      order: 1,
-      logoUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg'
-    },
-    { 
-      name: 'Node.js', 
-      category: 'Backend', 
-      level: 90, 
       order: 2,
-      logoUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg'
-    },
-    { 
-      name: 'Next.js', 
-      category: 'Frontend', 
-      level: 90, 
-      order: 3,
-      logoUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg'
-    },
-    { 
-      name: 'PostgreSQL', 
-      category: 'Database', 
-      level: 85, 
-      order: 4,
-      logoUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg'
-    },
-    { 
-      name: 'MongoDB', 
-      category: 'Database', 
-      level: 85, 
-      order: 5,
-      logoUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg'
-    },
-    { 
-      name: 'Express', 
-      category: 'Backend', 
-      level: 85, 
-      order: 6,
-      logoUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg'
+      logoUrl: '/images/typescript.svg'
     },
     { 
       name: 'JavaScript', 
       category: 'Frontend', 
+      level: 98, 
+      order: 3,
+      logoUrl: '/images/javascript.svg'
+    },
+    { 
+      name: 'Tailwind CSS', 
+      category: 'Frontend', 
+      level: 90, 
+      order: 4,
+      logoUrl: '/images/tailwindcss.svg'
+    },
+    { 
+      name: 'HTML5', 
+      category: 'Frontend', 
+      level: 98, 
+      order: 5,
+      logoUrl: '/images/html5.svg'
+    },
+    { 
+      name: 'CSS3', 
+      category: 'Frontend', 
+      level: 95, 
+      order: 6,
+      logoUrl: '/images/css.svg'
+    },
+    { 
+      name: 'Three.js', 
+      category: 'Frontend', 
       level: 95, 
       order: 7,
-      logoUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg'
+      logoUrl: '/images/three.svg'
+    },
+    
+    // Backend Technologies
+    { 
+      name: 'Python', 
+      category: 'Backend', 
+      level: 85, 
+      order: 8,
+      logoUrl: '/images/python.svg'
+    },
+    { 
+      name: 'FastAPI', 
+      category: 'Backend', 
+      level: 82, 
+      order: 9,
+      logoUrl: '/images/fastapi.svg'
+    },
+    { 
+      name: 'Django', 
+      category: 'Backend', 
+      level: 82, 
+      order: 10,
+      logoUrl: '/images/django.svg'
+    },
+    { 
+      name: 'Ruby', 
+      category: 'Backend', 
+      level: 82, 
+      order: 11,
+      logoUrl: '/images/ruby.svg'
+    },
+    { 
+      name: 'C++', 
+      category: 'Backend', 
+      level: 82, 
+      order: 12,
+      logoUrl: '/images/cplusplus.svg'
+    },
+    
+    // Databases
+    { 
+      name: 'PostgreSQL', 
+      category: 'Database', 
+      level: 88, 
+      order: 13,
+      logoUrl: '/images/postgresql.svg'
+    },
+    { 
+      name: 'MongoDB', 
+      category: 'Database', 
+      level: 90, 
+      order: 14,
+      logoUrl: '/images/mongodb.svg'
+    },
+    { 
+      name: 'Redis', 
+      category: 'Database', 
+      level: 82, 
+      order: 15,
+      logoUrl: '/images/redis.svg'
+    },
+    
+    // Cloud & DevOps
+    { 
+      name: 'AWS', 
+      category: 'Cloud & DevOps', 
+      level: 85, 
+      order: 16,
+      logoUrl: '/images/aws.png'
+    },
+    { 
+      name: 'Docker', 
+      category: 'Cloud & DevOps', 
+      level: 88, 
+      order: 17,
+      logoUrl: '/images/docker.svg'
+    },
+    { 
+      name: 'GitHub Actions', 
+      category: 'Cloud & DevOps', 
+      level: 85, 
+      order: 18,
+      logoUrl: '/images/githubactions.svg'
+    },
+    { 
+      name: 'Git', 
+      category: 'Cloud & DevOps', 
+      level: 95, 
+      order: 19,
+      logoUrl: '/images/git.svg'
+    },
+    { 
+      name: 'Sentry', 
+      category: 'Cloud & DevOps', 
+      level: 95, 
+      order: 20,
+      logoUrl: '/images/sentry.svg'
+    },
+    { 
+      name: 'Prometheus', 
+      category: 'Cloud & DevOps', 
+      level: 80, 
+      order: 21,
+      logoUrl: '/images/prometheus.svg'
     },
   ]
 
