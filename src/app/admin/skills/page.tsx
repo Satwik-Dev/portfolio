@@ -1,36 +1,38 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Image from 'next/image'
 
 interface Skill {
   id: string
   name: string
-  icon: string | null
-  subText: string | null
   category: string
-  sortOrder: number
+  level: number
+  logoUrl: string | null
+  order: number
 }
 
 interface SkillForm {
   name: string
-  icon: string
-  subText: string
   category: string
+  level: number
+  logoUrl: string
 }
 
 const emptyForm: SkillForm = {
   name: '',
-  icon: '',
-  subText: '',
-  category: 'backend',
+  category: 'Frontend',
+  level: 80,
+  logoUrl: '',
 }
 
 const categories = [
-  { value: 'backend', label: 'Backend' },
-  { value: 'frontend', label: 'Frontend' },
-  { value: 'ai', label: 'AI / ML' },
-  { value: 'devops', label: 'DevOps' },
-  { value: 'other', label: 'Other' },
+  { value: 'Frontend', label: 'Frontend' },
+  { value: 'Backend', label: 'Backend' },
+  { value: 'Database', label: 'Database' },
+  { value: 'Cloud & DevOps', label: 'Cloud & DevOps' },
+  { value: 'AI / ML', label: 'AI / ML' },
+  { value: 'Other', label: 'Other' },
 ]
 
 export default function AdminSkills() {
@@ -55,7 +57,7 @@ export default function AdminSkills() {
     setTimeout(() => setMessage(''), 3000)
   }
 
-  const handleChange = (field: keyof SkillForm, value: string) => {
+  const handleChange = (field: keyof SkillForm, value: string | number) => {
     setForm((prev) => ({ ...prev, [field]: value }))
   }
 
@@ -68,9 +70,9 @@ export default function AdminSkills() {
   const handleEdit = (skill: Skill) => {
     setForm({
       name: skill.name,
-      icon: skill.icon ?? '',
-      subText: skill.subText ?? '',
       category: skill.category,
+      level: skill.level,
+      logoUrl: skill.logoUrl ?? '',
     })
     setEditingId(skill.id)
     setShowForm(true)
@@ -141,7 +143,7 @@ export default function AdminSkills() {
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="font-heading text-3xl font-bold text-text-primary mb-2">Skills</h1>
-          <p className="text-sm text-text-dim">Manage your technical skills</p>
+          <p className="text-sm text-text-dim">Manage your technical skills &amp; tech stack</p>
         </div>
         {!showForm && (
           <button
@@ -176,27 +178,7 @@ export default function AdminSkills() {
               <input
                 value={form.name}
                 onChange={(e) => handleChange('name', e.target.value)}
-                placeholder="Python"
-                className={inputClass}
-              />
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <label className={labelClass}>Icon (emoji)</label>
-              <input
-                value={form.icon}
-                onChange={(e) => handleChange('icon', e.target.value)}
-                placeholder="⚡"
-                className={inputClass}
-              />
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <label className={labelClass}>Sub Text</label>
-              <input
-                value={form.subText}
-                onChange={(e) => handleChange('subText', e.target.value)}
-                placeholder="FastAPI · Django · Flask"
+                placeholder="React"
                 className={inputClass}
               />
             </div>
@@ -215,7 +197,52 @@ export default function AdminSkills() {
                 ))}
               </select>
             </div>
+
+            <div className="flex flex-col gap-2">
+              <label className={labelClass}>Logo URL</label>
+              <input
+                value={form.logoUrl}
+                onChange={(e) => handleChange('logoUrl', e.target.value)}
+                placeholder="/images/react.svg"
+                className={inputClass}
+              />
+              <p className="text-[0.6rem] text-text-muted font-mono">
+                Path to logo in /public/images/ — e.g. /images/react.svg
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <label className={labelClass}>Skill Level (0–100)</label>
+              <div className="flex items-center gap-4">
+                <input
+                  type="range"
+                  min={0}
+                  max={100}
+                  value={form.level}
+                  onChange={(e) => handleChange('level', parseInt(e.target.value))}
+                  className="flex-1 accent-accent h-2"
+                />
+                <span className="font-mono text-sm text-accent w-10 text-right">{form.level}%</span>
+              </div>
+            </div>
           </div>
+
+          {/* Logo preview */}
+          {form.logoUrl && (
+            <div className="mt-4 flex items-center gap-3 p-3 bg-bg-elevated/50 rounded-xl border border-glass-border w-fit">
+              <Image
+                src={form.logoUrl}
+                alt="Logo preview"
+                width={32}
+                height={32}
+                className="object-contain"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).style.display = 'none'
+                }}
+              />
+              <span className="text-xs text-text-muted font-mono">{form.logoUrl}</span>
+            </div>
+          )}
 
           <div className="flex gap-3 mt-6">
             <button
@@ -239,22 +266,48 @@ export default function AdminSkills() {
       <div className="flex flex-col gap-8">
         {grouped.map((group) => (
           <div key={group.value}>
-            <h3 className="font-mono text-xs text-accent tracking-[0.2em] uppercase mb-4">
-              {group.label}
-            </h3>
+            <div className="flex items-center gap-3 mb-4">
+              <h3 className="font-mono text-xs text-accent tracking-[0.2em] uppercase">
+                {group.label}
+              </h3>
+              <span className="px-2 py-0.5 bg-accent/10 border border-accent/20 text-accent text-[0.6rem] font-mono rounded-full">
+                {group.skills.length}
+              </span>
+              <span className="flex-1 h-px bg-glass-border" />
+            </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {group.skills.map((skill) => (
                 <div
                   key={skill.id}
-                  className="bg-glass border border-glass-border rounded-xl p-5 backdrop-blur-xl transition-all duration-300 hover:border-glass-border-hover flex items-start justify-between gap-3"
+                  className="bg-glass border border-glass-border rounded-xl p-4 backdrop-blur-xl transition-all duration-300 hover:border-glass-border-hover flex items-center justify-between gap-3"
                 >
-                  <div className="flex items-center gap-3">
-                    <span className="text-2xl">{skill.icon ?? '⚡'}</span>
-                    <div>
-                      <div className="text-sm font-medium text-text-primary">{skill.name}</div>
-                      {skill.subText && (
-                        <div className="font-mono text-[0.62rem] text-text-muted mt-0.5">{skill.subText}</div>
+                  <div className="flex items-center gap-3 min-w-0">
+                    {/* Logo or fallback */}
+                    <div className="w-8 h-8 flex-shrink-0 flex items-center justify-center">
+                      {skill.logoUrl ? (
+                        <Image
+                          src={skill.logoUrl}
+                          alt={skill.name}
+                          width={28}
+                          height={28}
+                          className="object-contain"
+                        />
+                      ) : (
+                        <span className="text-lg">⚡</span>
                       )}
+                    </div>
+
+                    <div className="min-w-0">
+                      <div className="text-sm font-medium text-text-primary truncate">{skill.name}</div>
+                      <div className="flex items-center gap-2 mt-0.5">
+                        <div className="w-16 h-1 bg-bg-elevated rounded-full overflow-hidden">
+                          <div
+                            className="h-full bg-gradient-to-r from-accent to-accent-violet rounded-full"
+                            style={{ width: `${skill.level}%` }}
+                          />
+                        </div>
+                        <span className="font-mono text-[0.58rem] text-text-muted">{skill.level}%</span>
+                      </div>
                     </div>
                   </div>
 

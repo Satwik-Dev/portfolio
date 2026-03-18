@@ -190,8 +190,8 @@ export default function Hero({ name, yearsExperience, projectsDelivered, clientS
         )}
       </div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-14 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-0 animate-[fadeSlideUp_1s_1.8s_forwards]">
+      {/* Scroll indicator — z-20 to float above the hero image */}
+      <div className="absolute bottom-14 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-4 opacity-0 animate-[fadeSlideUp_1s_1.8s_forwards]">
         <div className="w-[24px] h-[38px] border-[2px] border-text-primary/60 rounded-xl relative shadow-[0_0_10px_rgba(0,212,255,0.3)]">
           <span className="absolute top-2 left-1/2 -translate-x-1/2 w-[4px] h-2.5 bg-accent rounded-full animate-[scrollWheel_2s_ease-in-out_infinite] shadow-[0_0_8px_rgba(0,212,255,0.8)]" />
         </div>

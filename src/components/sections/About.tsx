@@ -227,9 +227,15 @@ export default function About({
                 >
                   {exp.position}
                 </div>
-                <div className="text-base text-text-primary/75 font-light">
+                <div className="flex items-center gap-2 text-base text-text-primary/75 font-light">
+                  <span className="w-2 h-2 rounded-full bg-accent/40" />
                   {exp.company}
                 </div>
+                {exp.description && (
+                  <p className="text-sm text-text-dim/70 font-light mt-1.5 leading-relaxed max-w-md">
+                    {exp.description}
+                  </p>
+                )}
               </div>
             ))}
           </div>

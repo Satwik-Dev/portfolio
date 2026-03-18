@@ -9,6 +9,7 @@ const sidebarLinks = [
   { label: 'Dashboard', href: '/admin', icon: '📊' },
   { label: 'Profile', href: '/admin/profile', icon: '👤' },
   { label: 'Experience', href: '/admin/experience', icon: '💼' },
+  { label: 'Education', href: '/admin/education', icon: '🎓' },
   { label: 'Projects', href: '/admin/projects', icon: '🚀' },
   { label: 'Skills', href: '/admin/skills', icon: '⚡' },
   { label: 'Competencies', href: '/admin/competencies', icon: '🧠' },

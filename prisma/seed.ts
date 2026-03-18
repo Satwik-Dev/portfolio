@@ -116,7 +116,7 @@ I hold a Master's in Software Engineering from UMBC with a 3.91 GPA, and have ex
   }
   console.log(`✅ ${projects.length} projects created`)
 
-  // Sample Experiences
+  // Experiences — update via admin panel for your real data
   const experiences = [
     {
       company: 'Spirit AI',
@@ -124,7 +124,7 @@ I hold a Master's in Software Engineering from UMBC with a 3.91 GPA, and have ex
       startDate: '2024',
       endDate: null,
       current: true,
-      description: 'Architecting scalable AI-powered applications',
+      description: 'Architecting scalable AI-powered applications from the ground up. Leading full-stack development with Next.js, Python, and cloud infrastructure.',
       order: 0,
     },
     {
@@ -133,7 +133,7 @@ I hold a Master's in Software Engineering from UMBC with a 3.91 GPA, and have ex
       startDate: '2021',
       endDate: '2024',
       current: false,
-      description: 'Built learning systems impacting millions',
+      description: 'Built learning systems impacting millions of students worldwide. Designed APIs handling 100K+ concurrent users with sub-200ms response times.',
       order: 1,
     },
   ]
@@ -328,6 +328,42 @@ I hold a Master's in Software Engineering from UMBC with a 3.91 GPA, and have ex
     })
   }
   console.log(`✅ ${skills.length} skills created`)
+
+  // Education
+  const educationData = [
+    {
+      school: 'University of Maryland, Baltimore County',
+      degree: 'Master of Science',
+      field: 'Software Engineering',
+      gpa: '3.91 / 4.0',
+      startDate: '2019',
+      endDate: '2021',
+      current: false,
+      description: 'Research focus on distributed systems, software architecture, and scalable cloud-native applications. Completed thesis on real-time data pipeline optimization.',
+      coursework: [
+        'Distributed Systems',
+        'Software Architecture',
+        'Cloud Computing',
+        'Machine Learning',
+        'Database Management',
+        'Agile Development',
+        'Algorithm Design',
+      ],
+      order: 0,
+    },
+  ]
+
+  for (const eduData of educationData) {
+    await prisma.education.upsert({
+      where: { id: `edu-${eduData.order}` },
+      update: {},
+      create: {
+        id: `edu-${eduData.order}`,
+        ...eduData,
+      },
+    })
+  }
+  console.log(`✅ ${educationData.length} education entries created`)
 
   console.log('🎉 Seeding completed!')
 }

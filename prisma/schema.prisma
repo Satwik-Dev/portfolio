@@ -112,3 +112,21 @@ model Competency {
 
   @@map("competencies")
 }
+
+model Education {
+  id          String   @id @default(cuid())
+  school      String
+  degree      String
+  field       String
+  gpa         String?
+  startDate   String
+  endDate     String?
+  description String?
+  coursework  String[]
+  current     Boolean  @default(false)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("education")
+}

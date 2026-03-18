@@ -13,7 +13,9 @@ import {
   type RapierRigidBody,
 } from '@react-three/rapier'
 import SectionWrapper from '@/components/ui/SectionWrapper'
+import GlassCard from '@/components/ui/GlassCard'
 import GradientText from '@/components/ui/GradientText'
+import Image from 'next/image'
 
 // ─── TYPES ──────────────────────────────────────────────────────────────────
 interface Skill {
@@ -48,6 +50,7 @@ const BRAND: Record<string, { color: string; abbr: string; draw?: string }> = {
   AWS:              { color: '#FF9900', abbr: 'AW', draw: 'text' },
   Redis:            { color: '#DC382D', abbr: 'Rd', draw: 'text' },
   GraphQL:          { color: '#E10098', abbr: 'GQ', draw: 'text' },
+  'Tailwind CSS':   { color: '#06B6D4', abbr: 'Tw', draw: 'text' },
   Tailwind:         { color: '#06B6D4', abbr: 'Tw', draw: 'text' },
   Prisma:           { color: '#2D3748', abbr: 'Pr', draw: 'text' },
   Git:              { color: '#F05032', abbr: 'Gt', draw: 'text' },
@@ -66,6 +69,8 @@ const BRAND: Record<string, { color: string; abbr: string; draw?: string }> = {
   Linux:            { color: '#FCC624', abbr: 'Lx', draw: 'text' },
   Vercel:           { color: '#000000', abbr: 'Vc', draw: 'next' },
   'Framer Motion':  { color: '#0055FF', abbr: 'FM', draw: 'text' },
+  HTML5:            { color: '#E34F26', abbr: 'HT', draw: 'text' },
+  CSS3:             { color: '#1572B6', abbr: 'CS', draw: 'text' },
 }
 
 const DEFAULT_TECHS = [
@@ -254,7 +259,6 @@ function drawLeaf(ctx: CanvasRenderingContext2D, cx: number, cy: number, color: 
 
 // ── Styled Text Fallback ──
 function drawStyledText(ctx: CanvasRenderingContext2D, cx: number, cy: number, color: string, text: string) {
-  // Soft colored circle behind text
   ctx.beginPath()
   ctx.arc(cx, cy, 80, 0, Math.PI * 2)
   ctx.fillStyle = color + '20'
@@ -262,7 +266,6 @@ function drawStyledText(ctx: CanvasRenderingContext2D, cx: number, cy: number, c
   ctx.strokeStyle = color + '50'
   ctx.lineWidth = 3
   ctx.stroke()
-  // Bold text
   ctx.fillStyle = color
   ctx.font = `bold ${text.length > 2 ? 72 : 90}px "Segoe UI", system-ui, sans-serif`
   ctx.textAlign = 'center'
@@ -390,7 +393,6 @@ function Scene({
     })
   }, [techNames])
 
-  // Generate sphere configs with stable scales
   const sphereConfigs = useMemo(
     () =>
       [...Array(sphereCount)].map(() => ({
@@ -403,7 +405,6 @@ function Scene({
 
   return (
     <>
-      {/* Lighting rig */}
       <ambientLight intensity={1} />
       <spotLight
         position={[20, 20, 25]}
@@ -417,7 +418,6 @@ function Scene({
       <directionalLight position={[0, 5, -4]} intensity={2} />
       <directionalLight position={[-10, -5, 5]} intensity={0.5} color="#a5b4fc" />
 
-      {/* Physics world — zero gravity, center-pulling impulse */}
       <Physics gravity={[0, 0, 0]}>
         <Pointer isActive={isActive} />
         {sphereConfigs.map((props, i) => (
@@ -430,14 +430,85 @@ function Scene({
         ))}
       </Physics>
 
-      {/* Environment map for realistic reflections */}
       <Environment preset="city" environmentIntensity={0.5} />
 
-      {/* N8 Ambient Occlusion for depth & contact shadows */}
       <EffectComposer enableNormalPass={false}>
         <N8AO color="#0a0014" aoRadius={2} intensity={1.15} />
       </EffectComposer>
     </>
+  )
+}
+
+// ─── SKILLS GRID WITH LOGOS ─────────────────────────────────────────────────
+function SkillsGrid({ skills }: { skills: Skill[] }) {
+  // Group skills by category
+  const grouped = useMemo(() => {
+    const map: Record<string, Skill[]> = {}
+    for (const skill of skills) {
+      if (!map[skill.category]) map[skill.category] = []
+      map[skill.category].push(skill)
+    }
+    return Object.entries(map)
+  }, [skills])
+
+  return (
+    <div className="mt-16 space-y-10">
+      {grouped.map(([category, categorySkills]) => (
+        <div key={category}>
+          {/* Category label */}
+          <div className="flex items-center gap-3 mb-5">
+            <span className="font-mono text-[0.65rem] text-accent tracking-[0.25em] uppercase">
+              {category}
+            </span>
+            <span className="flex-1 h-px bg-gradient-to-r from-accent/20 to-transparent" />
+          </div>
+
+          {/* Skills row */}
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3">
+            {categorySkills.map((skill) => {
+              const brand = BRAND[skill.name]
+              return (
+                <GlassCard
+                  key={skill.id}
+                  className="p-4 text-center group relative"
+                >
+                  {/* Hover bottom accent */}
+                  <div
+                    className="absolute bottom-0 left-0 w-full h-[2px] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"
+                    style={{ backgroundColor: brand?.color ?? '#888' }}
+                  />
+
+                  {/* Logo */}
+                  <div className="w-10 h-10 mx-auto mb-2 relative flex items-center justify-center">
+                    {skill.logoUrl ? (
+                      <Image
+                        src={skill.logoUrl}
+                        alt={skill.name}
+                        width={40}
+                        height={40}
+                        className="object-contain drop-shadow-[0_2px_8px_rgba(0,212,255,0.15)] group-hover:scale-110 transition-transform duration-300"
+                      />
+                    ) : (
+                      <span
+                        className="text-lg font-bold"
+                        style={{ color: brand?.color ?? '#888' }}
+                      >
+                        {brand?.abbr ?? skill.name.slice(0, 2).toUpperCase()}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Name */}
+                  <div className="text-[0.7rem] font-medium text-text-primary/80 group-hover:text-text-primary transition-colors leading-tight">
+                    {skill.name}
+                  </div>
+                </GlassCard>
+              )
+            })}
+          </div>
+        </div>
+      ))}
+    </div>
   )
 }
 
@@ -446,7 +517,6 @@ export default function TechStack({ skills }: TechStackProps) {
   const [isActive, setIsActive] = useState(true)
   const [isMounted, setIsMounted] = useState(false)
 
-  // Deduplicate skill names from DB, fallback to defaults
   const techNames = useMemo(() => {
     if (skills && skills.length > 0) {
       return Array.from(new Set(skills.map((s) => s.name)))
@@ -454,7 +524,6 @@ export default function TechStack({ skills }: TechStackProps) {
     return DEFAULT_TECHS
   }, [skills])
 
-  // More spheres = more coverage. ~2x the unique tech count fills the view nicely.
   const sphereCount = Math.max(40, techNames.length * 2)
 
   useEffect(() => {
@@ -516,7 +585,7 @@ export default function TechStack({ skills }: TechStackProps) {
           </h2>
         </div>
 
-        {/* ── 3D Physics Canvas — fully transparent, blends with site bg ── */}
+        {/* ── 3D Physics Canvas ── */}
         <div className="sr relative w-full h-[600px] md:h-[700px] rounded-3xl overflow-hidden">
           <Canvas
             shadows
@@ -553,41 +622,12 @@ export default function TechStack({ skills }: TechStackProps) {
           </div>
         </div>
 
-        {/* ── Tech Labels ── */}
-        <div className="sr mt-10 flex flex-wrap justify-center gap-3">
-          {techNames.map((name, i) => {
-            const brand = BRAND[name]
-            return (
-              <div
-                key={`${name}-${i}`}
-                className="group flex items-center gap-2 px-4 py-2 rounded-full border transition-all duration-300"
-                style={{
-                  borderColor: 'rgba(255,255,255,0.06)',
-                  backgroundColor: 'rgba(255,255,255,0.02)',
-                }}
-                onMouseEnter={(e) => {
-                  const c = brand?.color ?? '#888'
-                  e.currentTarget.style.borderColor = c + '40'
-                  e.currentTarget.style.backgroundColor = c + '10'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)'
-                  e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.02)'
-                }}
-              >
-                {brand?.color && (
-                  <span
-                    className="w-2 h-2 rounded-full"
-                    style={{ backgroundColor: brand.color }}
-                  />
-                )}
-                <span className="font-mono text-xs text-white/50 group-hover:text-white/80 transition-colors">
-                  {name}
-                </span>
-              </div>
-            )
-          })}
-        </div>
+        {/* ── Skills Grid with Logos from /public/images/ ── */}
+        {skills && skills.length > 0 && (
+          <div className="sr">
+            <SkillsGrid skills={skills} />
+          </div>
+        )}
       </div>
     </SectionWrapper>
   )
