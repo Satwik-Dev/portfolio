@@ -32,7 +32,7 @@ export default async function Home() {
       <main className="relative z-[1]">
         <Hero
           name={profile?.name ?? 'Satwik Alla'}
-          title={profile?.title ?? 'Full Stack Engineer'}
+          title={profile?.title ?? 'Full Stack Software Engineer'}
           subtitle={profile?.subtitle}
           bio={profile?.bio ?? ''}
           yearsExperience={profile?.yearsExperience ?? '3+'}
@@ -75,9 +75,9 @@ export default async function Home() {
 
         <Contact
           email={profile?.email ?? 'allasatwik93@gmail.com'}
-          phone={profile?.phone ?? null}
-          linkedin={profile?.linkedin ?? null}
-          github={profile?.github ?? null}
+          phone={profile?.phone ?? '14109054899'}
+          linkedin={profile?.linkedin ?? 'https://www.linkedin.com/in/satwik-alla'}
+          github={profile?.github ?? 'https://github.com/Satwik-Dev'}
         />
       </main>
 

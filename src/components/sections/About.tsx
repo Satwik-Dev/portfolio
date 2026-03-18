@@ -59,10 +59,10 @@ export default function About({
               
               {avatarUrl ? (
                 <>
-                  {/* Background glow - LESS OPAQUE */}
+                  {/* Background glow */}
                   <div className="absolute -inset-20 bg-gradient-radial from-accent/12 via-accent-violet/6 to-transparent blur-3xl opacity-60 group-hover:opacity-80 transition-opacity duration-700" />
                   
-                  {/* Color integration overlay - LESS OPAQUE */}
+                  {/* Color integration overlay */}
                   <div className="absolute inset-0 bg-gradient-to-br from-accent/12 via-transparent to-accent-violet/12 mix-blend-overlay z-10 pointer-events-none" />
                   
                   {/* Edge fades for seamless integration */}
@@ -88,7 +88,7 @@ export default function About({
                     <div className="absolute w-full h-[2px] bg-gradient-to-r from-transparent via-accent to-transparent animate-[scanLine_6s_ease-in-out_infinite]" />
                   </div>
                   
-                  {/* Particle overlay - LESS OPAQUE */}
+                  {/* Particle overlay */}
                   <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,212,255,0.06)_0%,transparent_50%)] opacity-40 pointer-events-none z-10" />
                   
                   {/* Corner accents */}
@@ -157,11 +157,11 @@ export default function About({
             ))}
           </div>
 
-          {/* Dynamic Metrics */}
-          <div className="sr grid grid-cols-2 gap-4 mb-10">
-            <GlassCard className="p-5">
+          {/* Achievement Stats — Recruiter-focused */}
+          <div className="sr grid grid-cols-2 gap-4 mb-12">
+            <GlassCard className="p-5 group/stat hover:border-accent/30 transition-all duration-300">
               <div 
-                className="font-display text-5xl text-accent leading-none" 
+                className="font-display text-5xl text-accent leading-none group-hover/stat:drop-shadow-[0_0_12px_rgba(0,212,255,0.4)] transition-all duration-300" 
                 style={{ textShadow: '0 0 20px rgba(0, 212, 255, 0.6), 0 4px 10px rgba(0, 0, 0, 0.5)' }}
               >
                 {metric1Value}
@@ -171,9 +171,9 @@ export default function About({
               </div>
             </GlassCard>
             
-            <GlassCard className="p-5">
+            <GlassCard className="p-5 group/stat hover:border-accent/30 transition-all duration-300">
               <div 
-                className="font-display text-5xl text-accent leading-none" 
+                className="font-display text-5xl text-accent leading-none group-hover/stat:drop-shadow-[0_0_12px_rgba(0,212,255,0.4)] transition-all duration-300" 
                 style={{ textShadow: '0 0 20px rgba(0, 212, 255, 0.6), 0 4px 10px rgba(0, 0, 0, 0.5)' }}
               >
                 {metric2Value}
@@ -183,9 +183,9 @@ export default function About({
               </div>
             </GlassCard>
             
-            <GlassCard className="p-5">
+            <GlassCard className="p-5 group/stat hover:border-accent/30 transition-all duration-300">
               <div 
-                className="font-display text-5xl text-accent leading-none" 
+                className="font-display text-5xl text-accent leading-none group-hover/stat:drop-shadow-[0_0_12px_rgba(0,212,255,0.4)] transition-all duration-300" 
                 style={{ textShadow: '0 0 20px rgba(0, 212, 255, 0.6), 0 4px 10px rgba(0, 0, 0, 0.5)' }}
               >
                 {metric3Value}
@@ -195,9 +195,9 @@ export default function About({
               </div>
             </GlassCard>
             
-            <GlassCard className="p-5">
+            <GlassCard className="p-5 group/stat hover:border-accent/30 transition-all duration-300">
               <div 
-                className="font-display text-5xl text-accent leading-none" 
+                className="font-display text-5xl text-accent leading-none group-hover/stat:drop-shadow-[0_0_12px_rgba(0,212,255,0.4)] transition-all duration-300" 
                 style={{ textShadow: '0 0 20px rgba(0, 212, 255, 0.6), 0 4px 10px rgba(0, 0, 0, 0.5)' }}
               >
                 {metric4Value}
@@ -208,36 +208,51 @@ export default function About({
             </GlassCard>
           </div>
 
-          {/* Timeline */}
-          <div className="sr relative pl-8">
-            {/* Gradient line */}
-            <div className="absolute left-0 top-0 h-full w-px bg-gradient-to-b from-accent via-accent-violet to-transparent" />
+          {/* Work Experience Timeline — Full history */}
+          <div className="sr">
+            <div className="flex items-center gap-3 mb-6">
+              <span className="font-mono text-[0.65rem] text-accent tracking-[0.25em] uppercase">
+                Experience
+              </span>
+              <span className="flex-1 h-px bg-gradient-to-r from-accent/20 to-transparent" />
+            </div>
 
-            {experiences.map((exp) => (
-              <div key={exp.id} className="relative pb-8 pl-6 last:pb-0">
-                {/* Dot */}
-                <div className="absolute -left-[1.56rem] top-1.5 w-2 h-2 rounded-full bg-accent shadow-[0_0_10px_rgba(0,212,255,0.25)]" />
+            <div className="relative pl-8">
+              {/* Gradient line */}
+              <div className="absolute left-0 top-0 h-full w-px bg-gradient-to-b from-accent via-accent-violet to-transparent" />
 
-                <div className="font-mono text-[0.7rem] text-accent tracking-[0.15em] mb-1">
-                  {exp.startDate} — {exp.endDate ?? 'Present'}
+              {experiences.map((exp) => (
+                <div key={exp.id} className="relative pb-8 pl-6 last:pb-0 group/exp">
+                  {/* Dot */}
+                  <div className="absolute -left-[1.56rem] top-1.5 w-2.5 h-2.5 rounded-full border-2 border-accent bg-bg-primary shadow-[0_0_10px_rgba(0,212,255,0.3)] group-hover/exp:bg-accent group-hover/exp:shadow-[0_0_16px_rgba(0,212,255,0.5)] transition-all duration-300" />
+
+                  <div className="font-mono text-[0.7rem] text-accent/80 tracking-[0.15em] mb-1">
+                    {exp.startDate} — {exp.endDate ?? 'Present'}
+                    {exp.current && (
+                      <span className="ml-2 inline-flex items-center gap-1 px-2 py-0.5 bg-accent/10 border border-accent/20 rounded-full text-[0.6rem] text-accent">
+                        <span className="w-1 h-1 bg-green-400 rounded-full animate-pulse" />
+                        Current
+                      </span>
+                    )}
+                  </div>
+                  <div 
+                    className="font-heading text-xl font-semibold mb-0.5 group-hover/exp:text-accent transition-colors duration-300" 
+                    style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.4)' }}
+                  >
+                    {exp.position}
+                  </div>
+                  <div className="flex items-center gap-2 text-base text-text-primary/75 font-light">
+                    <span className="w-1.5 h-1.5 rounded-full bg-accent-violet/50" />
+                    {exp.company}
+                  </div>
+                  {exp.description && (
+                    <p className="text-sm text-text-dim/80 font-light mt-2 leading-relaxed max-w-lg">
+                      {exp.description}
+                    </p>
+                  )}
                 </div>
-                <div 
-                  className="font-heading text-2xl font-semibold mb-0.5" 
-                  style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.4)' }}
-                >
-                  {exp.position}
-                </div>
-                <div className="flex items-center gap-2 text-base text-text-primary/75 font-light">
-                  <span className="w-2 h-2 rounded-full bg-accent/40" />
-                  {exp.company}
-                </div>
-                {exp.description && (
-                  <p className="text-sm text-text-dim/70 font-light mt-1.5 leading-relaxed max-w-md">
-                    {exp.description}
-                  </p>
-                )}
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>
