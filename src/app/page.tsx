@@ -13,6 +13,7 @@ import Contact from '@/components/sections/Contact'
 const NeuralField = dynamic(() => import('@/components/three/NeuralField'), { ssr: false })
 const Preloader = dynamic(() => import('@/components/layout/Preloader'), { ssr: false })
 const CustomCursor = dynamic(() => import('@/components/ui/CustomCursor'), { ssr: false })
+export const revalidate = 0
 
 export default async function Home() {
   const profile = await prisma.profile.findFirst()
