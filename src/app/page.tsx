@@ -33,7 +33,7 @@ export default async function Home() {
       <main className="relative z-[1]">
         <Hero
           name={profile?.name ?? 'Satwik Alla'}
-          title={profile?.title ?? 'Full Stack Software Engineer'}
+          title={profile?.title ?? 'Software Engineer'}
           subtitle={profile?.subtitle}
           bio={profile?.bio ?? ''}
           yearsExperience={profile?.yearsExperience ?? '3+'}
@@ -48,15 +48,15 @@ export default async function Home() {
           experiences={experiences}
           avatarUrl={profile?.avatarUrl}
           aboutTitle={profile?.aboutTitle ?? 'Building the future, one system at a time.'}
-          aboutBadge={profile?.aboutBadge ?? 'Founding Engineer @ Spirit AI'}
+          aboutBadge={profile?.aboutBadge ?? 'Lead Software Engineer @ Cosmo AGI, LLC'}
           metric1Value={profile?.metric1Value ?? '100K+'}
           metric1Label={profile?.metric1Label ?? 'Concurrent Users Served'}
           metric2Value={profile?.metric2Value ?? '<200ms'}
           metric2Label={profile?.metric2Label ?? 'API Response Time'}
-          metric3Value={profile?.metric3Value ?? '3.91'}
-          metric3Label={profile?.metric3Label ?? 'GPA @ UMBC'}
+          metric3Value={profile?.metric3Value ?? '99%'}
+          metric3Label={profile?.metric3Label ?? 'System Uptime'}
           metric4Value={profile?.metric4Value ?? '20+'}
-          metric4Label={profile?.metric4Label ?? 'APIs Designed'}
+          metric4Label={profile?.metric4Label ?? 'APIs Designed & Deployed'}
         />
 
         <div className="w-full h-px bg-gradient-to-r from-transparent via-accent to-transparent opacity-30" />

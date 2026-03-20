@@ -150,9 +150,10 @@ export default function About({
               <p key={idx} dangerouslySetInnerHTML={{
                 __html: paragraph
                   .replace(/BYJU'S/g, '<strong class="text-text-primary font-medium">BYJU\'S</strong>')
-                  .replace(/Spirit AI/g, '<strong class="text-text-primary font-medium">Spirit AI</strong>')
-                  .replace(/Master's in Software Engineering at UMBC/g, '<strong class="text-text-primary font-medium">Master\'s in Software Engineering at UMBC</strong>')
-                  .replace(/founding engineer/gi, '<strong class="text-text-primary font-medium">founding engineer</strong>')
+                  .replace(/Cosmo AGI, LLC/g, '<strong class="text-text-primary font-medium">Cosmo AGI, LLC</strong>')
+                  .replace(/Lead Software Engineer/g, '<strong class="text-text-primary font-medium">Lead Software Engineer</strong>')
+                  .replace(/UMBC/g, '<strong class="text-text-primary font-medium">UMBC</strong>')
+                  .replace(/IIT Bhubaneswar/g, '<strong class="text-text-primary font-medium">IIT Bhubaneswar</strong>')
               }} />
             ))}
           </div>
