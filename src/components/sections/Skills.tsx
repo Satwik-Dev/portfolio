@@ -3,12 +3,14 @@
 import SectionWrapper from '@/components/ui/SectionWrapper'
 import GlassCard from '@/components/ui/GlassCard'
 import GradientText from '@/components/ui/GradientText'
+import Image from 'next/image'
 
 interface Skill {
   id: string
   name: string
   category: string
   level: number
+  logoUrl?: string | null
   order: number
 }
 
@@ -51,9 +53,15 @@ export default function Skills({ skills, competencies }: SkillsProps) {
               {/* Bottom border reveal */}
               <div className="absolute bottom-0 left-0 w-full h-[3px] bg-gradient-to-r from-accent to-accent-violet scale-x-0 group-hover:scale-x-100 transition-transform duration-400 origin-left" />
 
-              <span className="text-3xl block mb-3">
-                ⚡
-              </span>
+              <div className="w-10 h-10 mx-auto mb-3 relative flex items-center justify-center">
+                <Image
+                  src={skill.logoUrl || '/images/placeholder-logo.svg'}
+                  alt={skill.name}
+                  width={40}
+                  height={40}
+                  className="object-contain drop-shadow-[0_2px_8px_rgba(0,212,255,0.15)] group-hover:scale-110 transition-transform duration-300"
+                />
+              </div>
               <div className="text-sm font-medium text-text-primary mb-1">
                 {skill.name}
               </div>

@@ -29,13 +29,13 @@ const bebas = Bebas_Neue({
 })
 
 export const metadata: Metadata = {
-  title: 'Satwik Alla — AI Full Stack Engineer',
+  title: 'Satwik Alla - AI Engineer',
   description:
-    'AI Full Stack Engineer crafting intelligent systems at the intersection of artificial intelligence, design, and modern web architecture.',
+    'AI Engineer building production LLM systems: RAG, long-term memory, semantic caching, model routing, and real-time safety, on FastAPI and vector search.',
   openGraph: {
-    title: 'Satwik Alla — AI Full Stack Engineer',
+    title: 'Satwik Alla - AI Engineer',
     description:
-      'Building AI systems that scale. Full-stack engineer specializing in LLM integrations, real-time systems, and scalable cloud architectures.',
+      'Founding AI Engineer shipping production LLM systems. RAG, episodic memory, semantic caching, LLM orchestration, and AI safety on FastAPI, Qdrant, and GCP.',
     type: 'website',
   },
 }

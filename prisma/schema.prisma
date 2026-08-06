@@ -39,7 +39,7 @@ model Profile {
   // About Section
   avatarUrl             String?
   aboutTitle            String   @default("Building the future, one system at a time.")
-  aboutBadge            String   @default("Founding Engineer @ Spirit AI")
+  aboutBadge            String   @default("Founding AI Engineer @ Cosmo AGI")
   metric1Value          String   @default("100K+")
   metric1Label          String   @default("Concurrent Users Served")
   metric2Value          String   @default("<200ms")

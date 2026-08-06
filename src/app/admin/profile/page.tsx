@@ -323,7 +323,7 @@ export default function AdminProfile() {
             <input
               value={profile.aboutBadge}
               onChange={(e) => handleChange('aboutBadge', e.target.value)}
-              placeholder="Founding Engineer @ Spirit AI"
+              placeholder="Founding AI Engineer @ Cosmo AGI"
               className={inputClass}
             />
             <p className="text-xs text-text-muted mt-1">Shows below your profile photo</p>

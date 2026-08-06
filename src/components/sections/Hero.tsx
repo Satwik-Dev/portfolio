@@ -14,11 +14,14 @@ interface HeroProps {
   clientSatisfaction: string
 }
 
-export default function Hero({ name, yearsExperience, projectsDelivered, clientSatisfaction }: HeroProps) {  const isMobile = useMediaQuery('(max-width: 1024px)')
+export default function Hero({ name, title, subtitle, bio, yearsExperience, projectsDelivered, clientSatisfaction }: HeroProps) {  const isMobile = useMediaQuery('(max-width: 1024px)')
   const nameParts = name.split(' ')
 
-  // Eye-catching bio - Replace in admin or use this default
-  const displayBio = "I build fast, beautiful, and scalable web applications. Obsessed with clean code, exceptional UX, and delivering products that exceed expectations. Let's create something remarkable."
+  // Hero bio: prefer subtitle, then first paragraph of the DB bio, then a default
+  const displayBio =
+    subtitle ||
+    bio?.split('\n').filter(Boolean)[0] ||
+    "I build and ship production LLM systems, the retrieval, memory, caching, routing, and safety layers that turn a raw model into a product people actually use."
 
   return (
     <section id="hero" className="relative min-h-screen flex items-center px-[6vw] pt-24 overflow-hidden">
@@ -59,7 +62,7 @@ export default function Hero({ name, yearsExperience, projectsDelivered, clientS
             </span>
           </h1>
 
-          {/* Updated title - FULL STACK ENGINEER (not AI) */}
+          {/* Title driven by DB profile.title, falls back to AI ENGINEER */}
           <div
             className="font-display tracking-[0.15em] text-text-primary/95 mb-10 opacity-0 animate-[fadeSlideUp_1s_0.9s_forwards]"
             style={{ 
@@ -67,7 +70,7 @@ export default function Hero({ name, yearsExperience, projectsDelivered, clientS
               textShadow: '0 2px 15px rgba(0, 0, 0, 0.6)'
             }}
           >
-            FULL STACK ENGINEER
+            {title || 'AI ENGINEER'}
           </div>
 
           {/* Eye-catching bio */}

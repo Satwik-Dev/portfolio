@@ -24,22 +24,18 @@ async function main() {
   console.log('✅ Admin user created:', user.email)
 
   // ─── PROFILE ─────────────────────────────────────────────────────────────────
-  const profile = await prisma.profile.upsert({
-    where: { id: 'default-profile' },
-    update: {},
-    create: {
-      id: 'default-profile',
+  const profileData = {
       name: 'Satwik Alla',
-      title: 'SOFTWARE ENGINEER',
-      subtitle: 'Building scalable systems that matter',
-      bio: `Most engineers inherit a codebase. I created one. As Lead Software Engineer at Cosmo AGI, LLC, I went from zero to production: FastAPI backend with sub-200ms APIs, a Next.js + Three.js frontend with real-time streaming, and containerized DevOps, all designed so the architecture scales before the team does.
+      title: 'AI ENGINEER',
+      subtitle: 'Shipping production LLM systems that people actually use',
+      bio: `Most engineers call a model. I own everything around the call. As the founding AI Engineer at Cosmo AGI, I built the AI systems behind a companion product end to end: long-term episodic memory with RAG over Qdrant and pgvector, a Redis semantic cache that cut p95 latency 40%, and a token-budgeting engine that cut token costs 30%, all on a FastAPI backend I grew from an empty repo to 64 endpoints and 19 Postgres tables.
 
-That instinct came from BYJU'S, where scaling wasn't optional, it was survival. I shipped 20+ APIs handling 100K+ concurrent users, engineered middleware that cut response times by 30%, and rebuilt an email pipeline on AWS SES that took delivery rates from 85% to 98%. When everything around you is growing exponentially, you learn to build foundations that hold.
+That instinct came from BYJU'S, where scaling wasn't optional, it was survival. I owned the backend behind three K-12 platforms handling 100K+ daily requests, collapsed a three-tier architecture to cut API latency 35% and compute cost 20%, and held the on-call pager for all of it. When everything around you is growing exponentially, you learn to build foundations that hold.
 
-UMBC Master's in Software Engineering, 3.91 GPA. IIT Bhubaneswar BTech. I specialize in the intersection of speed and durability, systems that ship fast and stay standing.`,
-      email: 'allasatwik93@gmail.com',
+UMBC Master's in Software Engineering, 3.91 GPA. IIT Bhubaneswar BTech. I specialize in retrieval, memory, cost, latency, and safety, the layers that turn a raw model into a product that ships and stays standing.`,
+      email: 'allasatwik4@gmail.com',
       phone: '14109054899',
-      location: 'New York City Metropolitan Area',
+      location: 'Washington DC-Baltimore Area',
       github: 'https://github.com/Satwik-Dev',
       linkedin: 'https://www.linkedin.com/in/satwik-alla',
       twitter: null,
@@ -52,16 +48,21 @@ UMBC Master's in Software Engineering, 3.91 GPA. IIT Bhubaneswar BTech. I specia
       // About Section
       avatarUrl: '/profile-photo.png',
       aboutTitle: 'Building the future, one system at a time.',
-      aboutBadge: 'Lead Software Engineer @ Cosmo AGI, LLC',
-      metric1Value: '100K+',
-      metric1Label: 'Concurrent Users Served',
-      metric2Value: '<200ms',
-      metric2Label: 'API Response Time',
-      metric3Value: '99%',
-      metric3Label: 'System Uptime',
-      metric4Value: '20+',
-      metric4Label: 'APIs Designed & Deployed',
-    },
+      aboutBadge: 'Founding AI Engineer @ Cosmo AGI',
+      metric1Value: '40%',
+      metric1Label: 'p95 Latency Reduction',
+      metric2Value: '64',
+      metric2Label: 'API Endpoints Built',
+      metric3Value: '3.91',
+      metric3Label: 'GPA @ UMBC',
+      metric4Value: '100K+',
+      metric4Label: 'Daily Requests Served',
+  }
+
+  const profile = await prisma.profile.upsert({
+    where: { id: 'default-profile' },
+    update: profileData,
+    create: { id: 'default-profile', ...profileData },
   })
   console.log('✅ Profile created')
 
@@ -85,18 +86,18 @@ UMBC Master's in Software Engineering, 3.91 GPA. IIT Bhubaneswar BTech. I specia
       order: 0,
     },
     {
-      title: 'Quiz Planner',
-      description: 'An intelligent learning management system leveraging Google Gemini AI to automatically generate customized quizzes from study materials. Features real-time grading with instant feedback, performance analytics dashboards, multiple question types (MCQ, True/False, Short Answer), and an NLP-based fallback engine when the API is unavailable.',
-      category: 'AI-Powered EdTech',
-      tags: ['Flask', 'React 19', 'MongoDB', 'Google Gemini', 'JWT', 'Python', 'Bootstrap', 'REST API'],
+      title: 'AI Quiz Planner',
+      description: 'A full-stack RAG-powered learning platform that converts unstructured study materials into tailored quizzes and real-time tutoring. Built an end-to-end retrieval pipeline with LangChain, vector embeddings, and low-latency similarity search over a vector store, with an LLM generating structured JSON quiz schemas and step-by-step explanations. Includes a context-aware chatbot with multi-turn memory.',
+      category: 'AI / RAG Systems',
+      tags: ['FastAPI', 'LangChain', 'RAG', 'Vector Search', 'React', 'TypeScript', 'Python', 'LLMs'],
       imageUrl: '/quiz-planner.png',
       demoUrl: 'https://quiz-planner-frontend.vercel.app',
       githubUrl: 'https://github.com/Satwik-Dev/Quiz-Planner',
       stats: {
-        'AI Model': 'Gemini 2.0',
-        'API Endpoints': '15+',
-        'Lines of Code': '8K+',
+        'Architecture': 'RAG Pipeline',
+        'Retrieval': 'Vector Search',
         'Question Types': '3',
+        'Chat': 'Multi-turn Memory',
       },
       featured: true,
       order: 1,
@@ -123,7 +124,7 @@ UMBC Master's in Software Engineering, 3.91 GPA. IIT Bhubaneswar BTech. I specia
   for (const projectData of projects) {
     await prisma.project.upsert({
       where: { id: `project-${projectData.order}` },
-      update: {},
+      update: projectData,
       create: {
         id: `project-${projectData.order}`,
         ...projectData,
@@ -135,39 +136,39 @@ UMBC Master's in Software Engineering, 3.91 GPA. IIT Bhubaneswar BTech. I specia
   // ─── EXPERIENCES ─────────────────────────────────────────────────────────────
   const experiences = [
     {
-      company: 'Cosmo AGI, LLC / Spirit AI',
-      position: 'Lead Software Engineer / Founding Engineer',
-      startDate: 'Oct 2025',
+      company: 'Cosmo AGI',
+      position: 'AI Engineer',
+      startDate: 'Jun 2025',
       endDate: null,
       current: true,
-      description: 'Architected and built the backend and data layer for an AI SaaS platform from the ground up. FastAPI with dual-LLM pipeline delivering sub-200ms APIs, PostgreSQL schema design with Redis caching, and JWT auth infrastructure. Leading GCP cloud migration across dev/staging/prod environments. Contributed to the Next.js 14 frontend and Unity WebGL 3D integration. Conduct code reviews, define technical specs, and collaborate directly with the CEO on product direction and architecture decisions.',
+      description: 'Founding AI engineer on a companion AI product, owning the AI systems end to end: retrieval, memory, caching, model routing, and safety. Architected long-term episodic memory with RAG over Qdrant and pgvector using automated fact extraction and top-k semantic retrieval. Built a Redis semantic cache that skips redundant LLM calls, cutting p95 inference latency 40%, and a context-pruning and token-budgeting engine that cut token costs 30%. Put OpenAI and Gemini behind a single streaming interface for per-persona routing, plus a real-time safety pipeline for moderation, prompt-injection mitigation, and self-harm crisis detection. Built the FastAPI backend from an empty repo to 64 endpoints and 19 Postgres tables on GCP.',
       order: 0,
     },
     {
       company: 'University of Maryland Baltimore County',
-      position: 'Software Engineering Graduate Assistant',
+      position: 'Teaching Assistant',
       startDate: 'Jan 2025',
-      endDate: 'Dec 2025',
+      endDate: 'May 2025',
       current: false,
-      description: 'Teaching assistant for the Software Engineering Capstone course, assessing 50+ assignments and providing technical mentorship to 30+ graduate students on project deliverables and Agile methodologies. Volunteered as a research assistant on the Digital Nutrition Label project, building Python automation scripts to evaluate software ethics across 56 technical attributes for 25 wellness applications.',
+      description: 'Teaching assistant for the SENG 701 Software Engineering Capstone. Directed 10+ student engineering squads through 5-month end-to-end SDLCs for production-grade applications, running weekly sprint reviews, architecture evaluations, and Agile/Scrum ceremonies. Conducted weekly code reviews and architectural audits across Python, Node.js, React, and cloud-hosted systems, mentoring teams on REST API design, model inference integration, data-pipeline structuring, and cloud deployment (AWS/GCP).',
       order: 1,
     },
     {
       company: 'BYJU\'S',
       position: 'Software Development Engineer',
       startDate: 'Jun 2022',
-      endDate: 'May 2023',
+      endDate: 'Dec 2023',
       current: false,
-      description: 'Shipped 20+ RESTful APIs in Ruby on Rails across 3 platforms serving 100K+ concurrent users at 99.5% uptime. Built middleware that cut response times by 30%, migrated email infrastructure to AWS SES pushing delivery from 85% to 98%, and deployed on EC2 with IAM security policies. Collaborated across 5+ teams during peak COVID-19 demand.',
+      description: 'Engineered high-throughput Python (Django REST Framework) backend microservices serving three K-12 and test-prep platforms across Andhra Pradesh and Telangana, supporting 30,000 to 100,000+ daily requests under sub-100ms latency SLAs. Led the migration that collapsed a legacy three-tier monolithic middleware architecture, cutting API latency 35% and cloud compute cost 20%. Redesigned schema indexes and query plans across Amazon RDS (PostgreSQL) and MongoDB, reducing bottlenecks 40%. Containerized services with Docker on Kubernetes (EKS), and held the on-call rotation at 99.95% uptime via Prometheus, Grafana, and Coralogix.',
       order: 2,
     },
     {
-      company: 'ODC \u2014 Odisha Design Council',
-      position: 'Web Developer',
+      company: 'ODC - Odisha Design Council',
+      position: 'Full-Stack Software Engineer',
       startDate: 'Jan 2022',
       endDate: 'Jun 2022',
       current: false,
-      description: 'Built a full-stack event management platform with React.js and PostgreSQL for a statewide design conference with 50+ speakers and 500+ attendees. Led a team of 5 developers through agile sprints, delivering 2 weeks ahead of schedule with 95% user satisfaction.',
+      description: 'Architected and delivered a full-stack web application for a statewide design conference, with real-time seat tracking and registration for 500+ attendees, using React, Next.js, and Tailwind CSS. Built concurrent-safe RESTful backend services in Python and Django REST Framework, using transactional locking and custom indexing to eliminate race conditions during registration spikes. Led a team of 5 developers, established code-review and Git workflows, and shipped ahead of launch on AWS with Docker and GitHub Actions CI/CD.',
       order: 3,
     },
     {
@@ -184,7 +185,7 @@ UMBC Master's in Software Engineering, 3.91 GPA. IIT Bhubaneswar BTech. I specia
   for (const expData of experiences) {
     await prisma.experience.upsert({
       where: { id: `exp-${expData.order}` },
-      update: {},
+      update: expData,
       create: {
         id: `exp-${expData.order}`,
         ...expData,
@@ -196,62 +197,69 @@ UMBC Master's in Software Engineering, 3.91 GPA. IIT Bhubaneswar BTech. I specia
   // ─── SKILLS ──────────────────────────────────────────────────────────────────
   // All images in /public/images/ — filenames match actual files in repo
   const skills = [
-    // Languages
-    { name: 'Python', category: 'Languages', level: 95, order: 0, logoUrl: '/images/python.jpg' },
-    { name: 'Java', category: 'Languages', level: 85, order: 1, logoUrl: '/images/java.png' },
-    { name: 'JavaScript', category: 'Languages', level: 95, order: 2, logoUrl: '/images/javascript.png' },
-    { name: 'TypeScript', category: 'Languages', level: 95, order: 3, logoUrl: '/images/typescript.png' },
-    { name: 'Ruby', category: 'Languages', level: 80, order: 4, logoUrl: '/images/ruby.png' },
-    { name: 'C', category: 'Languages', level: 75, order: 5, logoUrl: '/images/c.png' },
-    { name: 'C++', category: 'Languages', level: 78, order: 6, logoUrl: '/images/cplusplus.png' },
-    { name: 'HTML', category: 'Languages', level: 98, order: 7, logoUrl: '/images/html.png' },
-    { name: 'CSS', category: 'Languages', level: 95, order: 8, logoUrl: '/images/css.png' },
+    // AI / ML & LLM Systems  (evidence: Cosmo AGI, AI Quiz Planner)
+    { name: 'LLM Orchestration', category: 'AI / ML & LLM Systems', level: 92, order: 0, logoUrl: '/images/llms.jpg' },
+    { name: 'RAG', category: 'AI / ML & LLM Systems', level: 92, order: 1, logoUrl: null },
+    { name: 'Embeddings', category: 'AI / ML & LLM Systems', level: 90, order: 2, logoUrl: null },
+    { name: 'Vector Search', category: 'AI / ML & LLM Systems', level: 90, order: 3, logoUrl: null },
+    { name: 'LangChain', category: 'AI / ML & LLM Systems', level: 85, order: 4, logoUrl: null },
+    { name: 'LlamaIndex', category: 'AI / ML & LLM Systems', level: 80, order: 5, logoUrl: null },
+    { name: 'OpenAI APIs', category: 'AI / ML & LLM Systems', level: 90, order: 6, logoUrl: null },
+    { name: 'Gemini Multimodal', category: 'AI / ML & LLM Systems', level: 85, order: 7, logoUrl: null },
+    { name: 'Whisper (STT/TTS)', category: 'AI / ML & LLM Systems', level: 80, order: 8, logoUrl: null },
+    { name: 'Semantic Caching', category: 'AI / ML & LLM Systems', level: 88, order: 9, logoUrl: null },
+    { name: 'Token Management', category: 'AI / ML & LLM Systems', level: 88, order: 10, logoUrl: null },
+    { name: 'AI Safety & Moderation', category: 'AI / ML & LLM Systems', level: 82, order: 11, logoUrl: null },
+    { name: 'LLMOps', category: 'AI / ML & LLM Systems', level: 85, order: 12, logoUrl: null },
 
-    // Frontend
-    { name: 'React.js', category: 'Frontend', level: 95, order: 9, logoUrl: '/images/react.png' },
-    { name: 'Next.js', category: 'Frontend', level: 92, order: 10, logoUrl: '/images/nextjs.png' },
-    { name: 'Three.js', category: 'Frontend', level: 80, order: 11, logoUrl: '/images/three.png' },
-    { name: 'Tailwind CSS', category: 'Frontend', level: 92, order: 12, logoUrl: '/images/tailwindcss.png' },
+    // Vector & Databases
+    { name: 'Qdrant', category: 'Vector & Databases', level: 88, order: 13, logoUrl: null },
+    { name: 'pgvector', category: 'Vector & Databases', level: 88, order: 14, logoUrl: null },
+    { name: 'Pinecone / FAISS', category: 'Vector & Databases', level: 82, order: 15, logoUrl: null },
+    { name: 'PostgreSQL', category: 'Vector & Databases', level: 92, order: 16, logoUrl: '/images/postgresql.png' },
+    { name: 'Redis', category: 'Vector & Databases', level: 85, order: 17, logoUrl: '/images/redis.png' },
+    { name: 'MongoDB', category: 'Vector & Databases', level: 85, order: 18, logoUrl: '/images/mongodb.png' },
 
-    // Backend
-    { name: 'Node.js', category: 'Backend', level: 90, order: 13, logoUrl: '/images/nodejs.png' },
-    { name: 'FastAPI', category: 'Backend', level: 90, order: 14, logoUrl: '/images/fastapi.png' },
-    { name: 'Django', category: 'Backend', level: 82, order: 15, logoUrl: '/images/django.png' },
-    { name: 'Flask', category: 'Backend', level: 85, order: 16, logoUrl: '/images/flask.png' },
-    { name: 'Ruby on Rails', category: 'Backend', level: 80, order: 17, logoUrl: '/images/rubyonrails.png' },
-    { name: 'RESTful API', category: 'Backend', level: 95, order: 18, logoUrl: '/images/restfulapi.png' },
+    // Backend & APIs
+    { name: 'Python', category: 'Backend & APIs', level: 95, order: 19, logoUrl: '/images/python.jpg' },
+    { name: 'FastAPI', category: 'Backend & APIs', level: 92, order: 20, logoUrl: '/images/fastapi.png' },
+    { name: 'Django REST', category: 'Backend & APIs', level: 88, order: 21, logoUrl: '/images/django.png' },
+    { name: 'Flask', category: 'Backend & APIs', level: 82, order: 22, logoUrl: '/images/flask.png' },
+    { name: 'WebSockets', category: 'Backend & APIs', level: 85, order: 23, logoUrl: null },
+    { name: 'Celery', category: 'Backend & APIs', level: 80, order: 24, logoUrl: null },
+    { name: 'RESTful API', category: 'Backend & APIs', level: 95, order: 25, logoUrl: '/images/restfulapi.png' },
+    { name: 'Node.js', category: 'Backend & APIs', level: 82, order: 26, logoUrl: '/images/nodejs.png' },
 
-    // Databases
-    { name: 'PostgreSQL', category: 'Databases', level: 92, order: 19, logoUrl: '/images/postgresql.png' },
-    { name: 'Redis', category: 'Databases', level: 82, order: 20, logoUrl: '/images/redis.png' },
-    { name: 'MongoDB', category: 'Databases', level: 88, order: 21, logoUrl: '/images/mongodb.png' },
-    { name: 'Supabase', category: 'Databases', level: 85, order: 22, logoUrl: '/images/supabase.png' },
+    // Data Engineering  (evidence: CDC Streaming Pipeline)
+    { name: 'Apache Kafka', category: 'Data Engineering', level: 80, order: 27, logoUrl: '/images/kafka.png' },
+    { name: 'PySpark', category: 'Data Engineering', level: 78, order: 28, logoUrl: null },
+    { name: 'Debezium (CDC)', category: 'Data Engineering', level: 75, order: 29, logoUrl: null },
+    { name: 'Hadoop / HDFS', category: 'Data Engineering', level: 72, order: 30, logoUrl: null },
+    { name: 'Apache Airflow', category: 'Data Engineering', level: 75, order: 31, logoUrl: '/images/airflow.png' },
 
     // Cloud & DevOps
-    { name: 'Docker', category: 'Cloud & DevOps', level: 88, order: 23, logoUrl: '/images/docker.png' },
-    { name: 'AWS', category: 'Cloud & DevOps', level: 85, order: 24, logoUrl: '/images/aws.png' },
-    { name: 'GCP', category: 'Cloud & DevOps', level: 75, order: 25, logoUrl: '/images/gcp.png' },
-    { name: 'Git', category: 'Cloud & DevOps', level: 95, order: 26, logoUrl: '/images/git.png' },
-    { name: 'GitHub Actions', category: 'Cloud & DevOps', level: 85, order: 27, logoUrl: '/images/githubactions.png' },
+    { name: 'GCP', category: 'Cloud & DevOps', level: 82, order: 32, logoUrl: '/images/gcp.png' },
+    { name: 'AWS', category: 'Cloud & DevOps', level: 85, order: 33, logoUrl: '/images/aws.png' },
+    { name: 'Docker', category: 'Cloud & DevOps', level: 88, order: 34, logoUrl: '/images/docker.png' },
+    { name: 'Kubernetes', category: 'Cloud & DevOps', level: 78, order: 35, logoUrl: null },
+    { name: 'CI/CD', category: 'Cloud & DevOps', level: 85, order: 36, logoUrl: '/images/githubactions.png' },
+    { name: 'Prometheus', category: 'Cloud & DevOps', level: 78, order: 37, logoUrl: '/images/prometheus.png' },
+    { name: 'Sentry', category: 'Cloud & DevOps', level: 80, order: 38, logoUrl: '/images/sentry.png' },
 
-    // Tools & Platforms
-    { name: 'Sentry', category: 'Tools & Platforms', level: 82, order: 28, logoUrl: '/images/sentry.png' },
-    { name: 'Prometheus', category: 'Tools & Platforms', level: 78, order: 29, logoUrl: '/images/prometheus.png' },
-    { name: 'VS Code', category: 'Tools & Platforms', level: 95, order: 30, logoUrl: '/images/vscode.jpg' },
-    { name: 'Figma', category: 'Tools & Platforms', level: 75, order: 31, logoUrl: '/images/figma.png' },
-    { name: 'Postman', category: 'Tools & Platforms', level: 90, order: 32, logoUrl: '/images/postman.png' },
-
-    // AI & Data
-    { name: 'LLMs', category: 'AI & Data', level: 85, order: 33, logoUrl: '/images/llms.jpg' },
-    { name: 'Apache Kafka', category: 'AI & Data', level: 78, order: 34, logoUrl: '/images/kafka.png' },
-    { name: 'Apache Airflow', category: 'AI & Data', level: 75, order: 35, logoUrl: '/images/airflow.png' },
-    { name: 'Prisma', category: 'AI & Data', level: 88, order: 36, logoUrl: '/images/prisma.jpg' },
+    // Frontend & Languages
+    { name: 'TypeScript', category: 'Frontend & Languages', level: 90, order: 39, logoUrl: '/images/typescript.png' },
+    { name: 'JavaScript', category: 'Frontend & Languages', level: 92, order: 40, logoUrl: '/images/javascript.png' },
+    { name: 'React.js', category: 'Frontend & Languages', level: 90, order: 41, logoUrl: '/images/react.png' },
+    { name: 'Next.js', category: 'Frontend & Languages', level: 88, order: 42, logoUrl: '/images/nextjs.png' },
+    { name: 'Tailwind CSS', category: 'Frontend & Languages', level: 88, order: 43, logoUrl: '/images/tailwindcss.png' },
+    { name: 'Java', category: 'Frontend & Languages', level: 78, order: 44, logoUrl: '/images/java.png' },
+    { name: 'C / C++', category: 'Frontend & Languages', level: 72, order: 45, logoUrl: '/images/cplusplus.png' },
   ]
 
   for (const skillData of skills) {
     await prisma.skill.upsert({
       where: { id: `skill-${skillData.order}` },
-      update: {},
+      update: skillData,
       create: {
         id: `skill-${skillData.order}`,
         ...skillData,
@@ -286,7 +294,7 @@ UMBC Master's in Software Engineering, 3.91 GPA. IIT Bhubaneswar BTech. I specia
       school: 'Indian Institute of Technology Bhubaneswar',
       degree: 'Bachelor of Technology',
       field: 'Electrical Engineering',
-      gpa: '3.2 / 4.0',
+      gpa: '8.03 / 10.0',
       startDate: 'Jul 2018',
       endDate: 'May 2022',
       current: false,
@@ -303,7 +311,7 @@ UMBC Master's in Software Engineering, 3.91 GPA. IIT Bhubaneswar BTech. I specia
   for (const eduData of educationData) {
     await prisma.education.upsert({
       where: { id: `edu-${eduData.order}` },
-      update: {},
+      update: eduData,
       create: {
         id: `edu-${eduData.order}`,
         ...eduData,

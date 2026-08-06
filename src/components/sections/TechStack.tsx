@@ -78,14 +78,43 @@ const BRAND: Record<string, { color: string; abbr: string; draw?: string }> = {
   'Apache Kafka':   { color: '#231F20', abbr: 'Kf', draw: 'text' },
   'Apache Airflow': { color: '#017CEE', abbr: 'Af', draw: 'text' },
   Prisma:           { color: '#2D3748', abbr: 'Pr', draw: 'text' },
+
+  // AI / ML & LLM Systems
+  'LLM Orchestration':    { color: '#8B5CF6', abbr: 'LLM', draw: 'text' },
+  RAG:                    { color: '#8B5CF6', abbr: 'RAG', draw: 'text' },
+  Embeddings:             { color: '#7C3AED', abbr: 'Em', draw: 'text' },
+  'Vector Search':        { color: '#6D28D9', abbr: 'Ve', draw: 'text' },
+  LangChain:              { color: '#1C3C3C', abbr: 'LC', draw: 'text' },
+  LlamaIndex:             { color: '#5B21B6', abbr: 'LI', draw: 'text' },
+  'OpenAI APIs':          { color: '#412991', abbr: 'AI', draw: 'text' },
+  'Gemini Multimodal':    { color: '#4285F4', abbr: 'Gm', draw: 'text' },
+  'Whisper (STT/TTS)':    { color: '#10A37F', abbr: 'Wh', draw: 'text' },
+  'Semantic Caching':     { color: '#DC382D', abbr: 'SC', draw: 'text' },
+  'Token Management':     { color: '#9333EA', abbr: 'Tk', draw: 'text' },
+  'AI Safety & Moderation': { color: '#EF4444', abbr: 'Sf', draw: 'text' },
+  LLMOps:                 { color: '#8B5CF6', abbr: 'Ops', draw: 'text' },
+
+  // Vector & Data stores / engineering
+  Qdrant:                 { color: '#DC244C', abbr: 'Qd', draw: 'text' },
+  pgvector:               { color: '#336791', abbr: 'pgv', draw: 'text' },
+  'Pinecone / FAISS':     { color: '#1B17F5', abbr: 'Pc', draw: 'text' },
+  WebSockets:             { color: '#010101', abbr: 'WS', draw: 'text' },
+  Celery:                 { color: '#37814A', abbr: 'Ce', draw: 'text' },
+  'Django REST':          { color: '#092E20', abbr: 'DRF', draw: 'text' },
+  Kubernetes:             { color: '#326CE5', abbr: 'K8s', draw: 'text' },
+  'CI/CD':                { color: '#2088FF', abbr: 'CI', draw: 'text' },
+  PySpark:                { color: '#E25A1C', abbr: 'Sp', draw: 'text' },
+  'Debezium (CDC)':       { color: '#D9411E', abbr: 'Db', draw: 'text' },
+  'Hadoop / HDFS':        { color: '#66CCFF', abbr: 'Hd', draw: 'text' },
+  'C / C++':              { color: '#00599C', abbr: 'C+', draw: 'text' },
 }
 
 const DEFAULT_TECHS = [
-  'React.js', 'TypeScript', 'Node.js', 'Next.js',
-  'PostgreSQL', 'MongoDB', 'JavaScript', 'Python',
-  'Java', 'FastAPI', 'Django', 'Flask', 'Ruby',
-  'C', 'C++', 'Redis', 'AWS', 'GCP', 'Docker',
-  'GitHub Actions', 'Git', 'Sentry', 'LLMs',
+  'RAG', 'Embeddings', 'Vector Search', 'LangChain',
+  'OpenAI APIs', 'Gemini Multimodal', 'LLMOps', 'Qdrant',
+  'pgvector', 'Python', 'FastAPI', 'PostgreSQL',
+  'Redis', 'Docker', 'GCP', 'AWS',
+  'TypeScript', 'React.js', 'Next.js', 'Apache Kafka',
 ]
 
 // ─── CANVAS TEXTURE GENERATOR ───────────────────────────────────────────────
@@ -487,22 +516,13 @@ function SkillsGrid({ skills }: { skills: Skill[] }) {
 
                   {/* Logo */}
                   <div className="w-10 h-10 mx-auto mb-2 relative flex items-center justify-center">
-                    {skill.logoUrl ? (
-                      <Image
-                        src={skill.logoUrl}
-                        alt={skill.name}
-                        width={40}
-                        height={40}
-                        className="object-contain drop-shadow-[0_2px_8px_rgba(0,212,255,0.15)] group-hover:scale-110 transition-transform duration-300"
-                      />
-                    ) : (
-                      <span
-                        className="text-lg font-bold"
-                        style={{ color: brand?.color ?? '#888' }}
-                      >
-                        {brand?.abbr ?? skill.name.slice(0, 2).toUpperCase()}
-                      </span>
-                    )}
+                    <Image
+                      src={skill.logoUrl || '/images/placeholder-logo.svg'}
+                      alt={skill.name}
+                      width={40}
+                      height={40}
+                      className="object-contain drop-shadow-[0_2px_8px_rgba(0,212,255,0.15)] group-hover:scale-110 transition-transform duration-300"
+                    />
                   </div>
 
                   {/* Name */}

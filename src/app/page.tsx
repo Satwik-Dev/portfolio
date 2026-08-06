@@ -33,7 +33,7 @@ export default async function Home() {
       <main className="relative z-[1]">
         <Hero
           name={profile?.name ?? 'Satwik Alla'}
-          title={profile?.title ?? 'Software Engineer'}
+          title={profile?.title ?? 'AI Engineer'}
           subtitle={profile?.subtitle}
           bio={profile?.bio ?? ''}
           yearsExperience={profile?.yearsExperience ?? '3+'}
@@ -48,7 +48,7 @@ export default async function Home() {
           experiences={experiences}
           avatarUrl={profile?.avatarUrl}
           aboutTitle={profile?.aboutTitle ?? 'Building the future, one system at a time.'}
-          aboutBadge={profile?.aboutBadge ?? 'Lead Software Engineer @ Cosmo AGI, LLC'}
+          aboutBadge={profile?.aboutBadge ?? 'Founding AI Engineer @ Cosmo AGI'}
           metric1Value={profile?.metric1Value ?? '100K+'}
           metric1Label={profile?.metric1Label ?? 'Concurrent Users Served'}
           metric2Value={profile?.metric2Value ?? '<200ms'}
@@ -75,7 +75,7 @@ export default async function Home() {
         <div className="w-full h-px bg-gradient-to-r from-transparent via-accent to-transparent opacity-30" />
 
         <Contact
-          email={profile?.email ?? 'allasatwik93@gmail.com'}
+          email={profile?.email ?? 'allasatwik4@gmail.com'}
           phone={profile?.phone ?? '14109054899'}
           linkedin={profile?.linkedin ?? 'https://www.linkedin.com/in/satwik-alla'}
           github={profile?.github ?? 'https://github.com/Satwik-Dev'}
